@@ -1,4 +1,4 @@
-import { memo } from "react";
+import { memo, useCallback } from "react";
 import Button from "./Button";
 import { twMerge } from "tailwind-merge";
 import { EventTarget } from "../../utils/EventTarget";
@@ -59,6 +59,13 @@ function ButtonGroup({
   overlapSpacing = 45,
   containerProps = { className: "" },
 }) {
+  const handleClick = useCallback(
+    (name, value) => () => {
+      onChange(new EventTarget(name, value));
+    },
+    [onChange]
+  );
+
   return (
     <div
       {...containerProps}
@@ -101,16 +108,14 @@ function ButtonGroup({
               left: `-${overlapSpacing * index}px`,
               ...style,
             }}
-            onClick={() => onChange(new EventTarget(option.name, value))}
+            onClick={handleClick(option.name, value)}
             {...option}
           >
             {activeValue === value && label}
             {Icon && (
               <Icon
                 className={`${
-                  activeValue === option.value
-                    ? activeIconClassName
-                    : iconClassName
+                  activeValue === value ? activeIconClassName : iconClassName
                 }`}
               />
             )}
