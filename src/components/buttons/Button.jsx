@@ -4,12 +4,17 @@ import { twMerge } from "tailwind-merge";
 /**
  * @typedef utils
  * @property {"contained"|"outlined"} variant
- * @property {"primary"|"danger"|"dark"} color
+ * @property {"primary"|"secondary"|"danger"|"dark"} color
  * @property {boolean} submitting
  */
 
 /**
- * @param {React.ButtonHTMLAttributes<HTMLButtonElement> & utils} props
+ * @typedef buttonProps
+ * @type {React.ButtonHTMLAttributes<HTMLButtonElement> & utils}
+ */
+
+/**
+ * @param {buttonProps} props
  */
 function Button(props) {
   const {

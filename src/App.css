@@ -1,0 +1,43 @@
+.btn {
+  @apply rounded-lg transition-all duration-150 ease-in-out text-[12px] lg:text-[16px];
+}
+
+.contained-primary {
+  @apply text-white bg-primary-main hover:bg-primary-dark;
+}
+
+.contained-secondary {
+  @apply text-black bg-secondary-main hover:bg-dark-dark;
+}
+
+.contained-danger {
+  @apply text-white bg-danger-main hover:bg-danger-dark;
+}
+
+.contained-dark {
+  @apply text-white bg-black hover:bg-dark-light;
+}
+
+.outlined-primary {
+  @apply text-primary-main border-primary-main border-[1px] hover:bg-primary-light;
+}
+
+.outlined-secondary {
+  @apply text-primary-main border-secondary-main border-[1px] hover:bg-primary-light;
+}
+
+.outlined-danger {
+  @apply text-danger-main border-danger-main border-[1px] hover:bg-danger-light;
+}
+
+.outlined-dark {
+  @apply text-black border-black border-[1px]  hover:bg-dark-dark;
+}
+
+.contained-disabled {
+  @apply text-white bg-[#888] border-[#888] opacity-60;
+}
+
+.outlined-disabled {
+  @apply contained-disabled;
+}
