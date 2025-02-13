@@ -105,13 +105,14 @@ function ButtonGroup({
             )}
             style={{
               borderRadius: "2rem",
-              left: `-${overlapSpacing * index}px`,
+              [document.body.dir === "rtl" ? "right" : "left"]: `-${
+                overlapSpacing * index
+              }px`,
               ...style,
             }}
             onClick={handleClick(option.name, value)}
             {...option}
           >
-            {activeValue === value && label}
             {Icon && (
               <Icon
                 className={`${
@@ -119,6 +120,7 @@ function ButtonGroup({
                 }`}
               />
             )}
+            {activeValue === value && label}
           </Button>
         )
       )}

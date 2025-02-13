@@ -16,14 +16,14 @@ export default function Navbar() {
   const allocationOptions = useMemo(
     () => [
       {
-        value: "vehicle",
-        label: "آليات",
-        Icon: Vehicle,
-      },
-      {
         value: "agriculture",
         label: "زراعي",
         Icon: Agriculture,
+      },
+      {
+        value: "vehicle",
+        label: "آليات",
+        Icon: Vehicle,
       },
     ],
     []
@@ -39,24 +39,24 @@ export default function Navbar() {
   return (
     <div className="h-28 bg-white">
       <div className="flex justify-between px-16 items-center">
+        <div>
+          <Logo />
+        </div>
         <div className="flex gap-x-4">
+          <ButtonGroup
+            options={allocationOptions}
+            activeValue={allocationPage}
+            onChange={handleAllocationChange}
+          />
           <Button
             color="danger"
             variant="contained"
             className="w-max flex gap-x-2 px-7 items-center"
             style={{ borderRadius: "2rem" }}
           >
-            تسجيل الخروج
             <Logout />
+            تسجيل الخروج
           </Button>
-          <ButtonGroup
-            options={allocationOptions}
-            activeValue={allocationPage}
-            onChange={handleAllocationChange}
-          />
-        </div>
-        <div>
-          <Logo />
         </div>
       </div>
     </div>
