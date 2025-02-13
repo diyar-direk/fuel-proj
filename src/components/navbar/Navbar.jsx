@@ -1,6 +1,6 @@
 import { ReactComponent as Logo } from "../../assets/icons/logo.svg";
 import { ReactComponent as Logout } from "../../assets/icons/logout.svg";
-import { ReactComponent as Vechile } from "../../assets/icons/vehicle.svg";
+import { ReactComponent as Vehicle } from "../../assets/icons/vehicle.svg";
 import { ReactComponent as Agriculture } from "../../assets/icons/agriculture.svg";
 import Button from "../buttons/Button";
 import useCashingState from "../../hooks/useCashingState";
@@ -10,15 +10,15 @@ import ButtonGroup from "../buttons/ButtonGroup";
 export default function Navbar() {
   const [allocationPage, setAllocationPage] = useCashingState(
     "allocationPage",
-    "vechile"
+    "vehicle"
   );
 
   const allocationOptions = useMemo(
     () => [
       {
-        value: "vechile",
+        value: "vehicle",
         label: "آليات",
-        Icon: Vechile,
+        Icon: Vehicle,
       },
       {
         value: "agriculture",
