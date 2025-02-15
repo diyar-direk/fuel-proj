@@ -37,12 +37,12 @@ export default function Navbar() {
   );
 
   return (
-    <div className="h-28 bg-white">
-      <div className="flex justify-between px-16 items-center">
+    <div className="bg-white">
+      <div className="flex justify-between flex-row max-md:flex-col px-16 max-lg:px-3 items-center">
         <div>
-          <Logo />
+          <Logo className="w-72 max-lg:w-60" />
         </div>
-        <div className="flex gap-x-4">
+        <div className="flex gap-x-2 justify-between w-min max-md:w-full ">
           <ButtonGroup
             options={allocationOptions}
             activeValue={allocationPage}
