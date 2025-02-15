@@ -18,7 +18,7 @@ function IconButton({ children, ...props } = { className: "" }) {
     <div
       {...props}
       className={twMerge(
-        "hover:bg-dark-dark cursor-pointer p-2 rounded-full flex justify-center items-center max-md:w-9 max-md:h-9",
+        "hover:bg-dark-dark duration-150 ease-in-out cursor-pointer p-2 rounded-full flex justify-center items-center max-md:w-9 max-md:h-9",
         props.className
       )}
     >
