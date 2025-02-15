@@ -23,9 +23,11 @@ function VehiclesRecordList() {
         ]}
       />
       <div>
-        <div className="flex justify-between items-center px-16 py-3">
-          <p className="text-primary-main text-3xl">سجل الآليات</p>
-          <div className="flex gap-3">
+        <div className="flex justify-between items-center px-16 max-md:px-9 max-sm:px-5 py-3">
+          <p className="text-primary-main text-3xl max-md:text-xl max-sm:text-base font-medium">
+            سجل الآليات
+          </p>
+          <div className="flex gap-3 max-md:gap-1">
             <Tooltip title="Search">
               <IconButton>
                 <SearchIcon />
