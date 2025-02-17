@@ -1,5 +1,6 @@
 import { ReactComponent as Vehicle } from "../../../../assets/icons/vehicle.svg";
 import PagePath from "../../../../components/PagePath";
+import VehiclesRecordGeneralSchema from "../components/VehiclesRecordGeneralSchema";
 import VehiclesRecordTable from "../components/VehiclesRecordTable";
 import VehiclesRecordToolBar from "../components/VehiclesRecordToolBar";
 
@@ -23,6 +24,7 @@ function VehiclesRecordList() {
           <VehiclesRecordToolBar />
         </div>
         <div className="flex gap-2 bg-secondary-main">
+          <VehiclesRecordGeneralSchema />
           <VehiclesRecordTable />
         </div>
       </div>
