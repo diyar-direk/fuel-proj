@@ -4,14 +4,14 @@ import ShowSchema from "../../../../components/ShowSchema/ShowSchema";
 
 function VehiclesRecordGeneralSchema() {
   return (
-    <div className="flex justify-center items-center mr-14 ml-8 ">
+    <div className="flex justify-center items-center mr-4 ml-8 max-md:mr-2">
       <ShowSchema
         title={
-          <div className="flex items-center">
-            <div className="px-2 flex justify-center items-center max-md:w-9 max-md:h-9">
+          <div className="flex items-center ">
+            <div className="flex justify-center items-center max-md:w-6 max-md:h-3 max-md:mr-[5px] mr-2  max-md:mb-1">
               <HomeIcon />
             </div>
-            <p className="text-primary-main font-semibold text-lg">
+            <p className="text-primary-main font-semibold text-base max-md:text-sm">
               المخطط العام
             </p>
           </div>
@@ -21,17 +21,10 @@ function VehiclesRecordGeneralSchema() {
             title: "كوباني",
             arrowProps: { borderStyle: "border-solid" },
             children: [
-              {
-                title: "مجلس 1",
-                children: [
-                  {
-                    title: "مجلس 3",
-                    children: [{ title: "مجلس 4" }, { title: "مجلس 7" }],
-                  },
-                  { title: "مجلس 5", children: [{ title: "مجلس 6" }] },
-                ],
-              },
+              { title: "مجلس 1" },
               { title: "مجلس 2" },
+              { title: "مجلس 3", children: [{ title: "مجلس 4" }] },
+              { title: "مجلس 4" },
             ],
           },
         ]}
