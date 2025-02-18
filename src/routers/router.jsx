@@ -1,8 +1,9 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import useExampleRouter from "../features/admin/example/router";
 import Container from "../components/container/Container";
 import Layout from "../components/layout/Layout";
+import useExampleRouter from "../features/admin/example/router";
 import useLoginRouter from "../features/login/router";
+import useVehiclesRecord from "../features/admin/vehiclesRecord/router";
 
 function AppRouter() {
   const routers = createBrowserRouter([
@@ -15,6 +16,7 @@ function AppRouter() {
           children: [
             { element: <h1>Home</h1>, index: true },
             ...useExampleRouter(),
+            ...useVehiclesRecord(),
           ],
         },
         ...useLoginRouter(),

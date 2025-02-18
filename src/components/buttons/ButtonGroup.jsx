@@ -69,7 +69,7 @@ function ButtonGroup({
   return (
     <div
       {...containerProps}
-      className={twMerge("flex relative", containerProps.className)}
+      className={twMerge("flex max-sm:w-full", containerProps.className)}
     >
       {options.map(
         (
@@ -96,7 +96,7 @@ function ButtonGroup({
             }
             variant={variant || buttonVariant}
             className={twMerge(
-              `w-max flex gap-x-2 px-14 items-center relative transition-all `,
+              `w-full flex gap-x-2 px-14 justify-center items-center transition-all `,
               `${buttonClassName} ${className} ${
                 activeValue === value
                   ? `z-[100] ${activeButtonClassName}`
@@ -105,7 +105,7 @@ function ButtonGroup({
             )}
             style={{
               borderRadius: "2rem",
-              [document.body.dir === "rtl" ? "right" : "left"]: `-${
+              [document.body.dir === "rtl" ? "marginRight" : "marginLeft"]: `-${
                 overlapSpacing * index
               }px`,
               ...style,

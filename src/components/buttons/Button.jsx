@@ -35,7 +35,7 @@ function Button(props) {
       className={twMerge(
         `${variant}-${
           processedDisabled ? "disabled" : color
-        } btn py-2 px-4 w-full`,
+        } btn py-2 max-lg:py-0.5 px-4 w-full`,
         `${className}`
       )}
       {...otherProps}

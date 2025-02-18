@@ -37,12 +37,12 @@ export default function Navbar() {
   );
 
   return (
-    <div className="h-28 bg-white">
-      <div className="flex justify-between px-16 items-center">
+    <div className="bg-white">
+      <div className="flex justify-between max-md:flex-col px-16 max-lg:p-3 items-center gap-2">
         <div>
-          <Logo />
+          <Logo className="w-72 max-lg:max-w-60 max-lg:max-h-14" />
         </div>
-        <div className="flex gap-x-4">
+        <div className="flex gap-x-2 justify-between max-sm:flex-col max-sm:items-center w-min max-md:w-full max-sm:gap-2 ">
           <ButtonGroup
             options={allocationOptions}
             activeValue={allocationPage}
@@ -51,7 +51,7 @@ export default function Navbar() {
           <Button
             color="danger"
             variant="contained"
-            className="w-max flex gap-x-2 px-7 items-center"
+            className="w-max max-sm:w-full flex gap-x-2 px-7 justify-center items-center"
             style={{ borderRadius: "2rem" }}
           >
             <Logout />
