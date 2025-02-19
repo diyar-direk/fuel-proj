@@ -1,6 +1,6 @@
 import { memo } from "react";
-import { ReactComponent as HomeIcon } from "../../../../assets/icons/home.svg";
 import ShowSchema from "../../../../components/ShowSchema/ShowSchema";
+import { HomeIcon } from "../../../../assets/icons";
 
 function VehiclesRecordGeneralSchema() {
   return (

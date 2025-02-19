@@ -1,0 +1,12 @@
+export { ReactComponent as LogoIcon } from "./logo.svg";
+export { ReactComponent as AddIcon } from "./add.svg";
+export { ReactComponent as EditIcon } from "./edit.svg";
+export { ReactComponent as RemoveIcon } from "./remove.svg";
+export { ReactComponent as SearchIcon } from "./search.svg";
+export { ReactComponent as FilterIcon } from "./filter.svg";
+export { ReactComponent as HomeIcon } from "./home.svg";
+export { ReactComponent as AgricultureIcon } from "./agriculture.svg";
+export { ReactComponent as LogoutIcon } from "./logout.svg";
+export { ReactComponent as PrintIcon } from "./print.svg";
+export { ReactComponent as VehicleIcon } from "./vehicle.svg";
+export { ReactComponent as InfoIcon } from "./info.svg";
