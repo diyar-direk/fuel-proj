@@ -1,5 +1,6 @@
-import { ReactComponent as Vehicle } from "../../../../assets/icons/vehicle.svg";
+import { VehicleIcon } from "../../../../assets/icons";
 import PagePath from "../../../../components/PagePath";
+import VehiclesRecordGeneralSchema from "../components/VehiclesRecordGeneralSchema";
 import VehiclesRecordTable from "../components/VehiclesRecordTable";
 import VehiclesRecordToolBar from "../components/VehiclesRecordToolBar";
 
@@ -9,7 +10,7 @@ function VehiclesRecordList() {
       <PagePath
         paths={[
           {
-            children: <Vehicle className="fill-primary-main" />,
+            children: <VehicleIcon className="fill-primary-main" />,
           },
           { children: "آليات" },
           { children: "محطات" },
@@ -23,6 +24,7 @@ function VehiclesRecordList() {
           <VehiclesRecordToolBar />
         </div>
         <div className="flex gap-2 bg-secondary-main">
+          <VehiclesRecordGeneralSchema />
           <VehiclesRecordTable />
         </div>
       </div>

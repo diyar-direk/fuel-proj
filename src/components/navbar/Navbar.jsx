@@ -1,11 +1,13 @@
-import { ReactComponent as Logo } from "../../assets/icons/logo.svg";
-import { ReactComponent as Logout } from "../../assets/icons/logout.svg";
-import { ReactComponent as Vehicle } from "../../assets/icons/vehicle.svg";
-import { ReactComponent as Agriculture } from "../../assets/icons/agriculture.svg";
 import Button from "../buttons/Button";
 import useCashingState from "../../hooks/useCashingState";
 import { useCallback, useMemo } from "react";
 import ButtonGroup from "../buttons/ButtonGroup";
+import {
+  AgricultureIcon,
+  LogoIcon,
+  LogoutIcon,
+  VehicleIcon,
+} from "../../assets/icons";
 
 export default function Navbar() {
   const [allocationPage, setAllocationPage] = useCashingState(
@@ -18,12 +20,12 @@ export default function Navbar() {
       {
         value: "agriculture",
         label: "زراعي",
-        Icon: Agriculture,
+        Icon: AgricultureIcon,
       },
       {
         value: "vehicle",
         label: "آليات",
-        Icon: Vehicle,
+        Icon: VehicleIcon,
       },
     ],
     []
@@ -40,7 +42,7 @@ export default function Navbar() {
     <div className="bg-white">
       <div className="flex justify-between max-md:flex-col px-16 max-lg:p-3 items-center gap-2">
         <div>
-          <Logo className="w-72 max-lg:max-w-60 max-lg:max-h-14" />
+          <LogoIcon className="w-72 max-lg:max-w-60 max-lg:max-h-14" />
         </div>
         <div className="flex gap-x-2 justify-between max-sm:flex-col max-sm:items-center w-min max-md:w-full max-sm:gap-2 ">
           <ButtonGroup
@@ -54,7 +56,7 @@ export default function Navbar() {
             className="w-max max-sm:w-full flex gap-x-2 px-7 justify-center items-center"
             style={{ borderRadius: "2rem" }}
           >
-            <Logout />
+            <LogoutIcon />
             تسجيل الخروج
           </Button>
         </div>
