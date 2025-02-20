@@ -4,7 +4,7 @@ import { HomeIcon } from "../../../../assets/icons";
 
 function VehiclesRecordGeneralSchema() {
   return (
-    <div className="flex justify-center items-center mr-4 ml-8 max-md:mr-2">
+    <div className="flex justify-center mx-1">
       <ShowSchema
         title={
           <div className="flex items-center ">
@@ -23,7 +23,9 @@ function VehiclesRecordGeneralSchema() {
             children: [
               { title: "مجلس 1" },
               { title: "مجلس 2" },
-              { title: "مجلس 3", children: [{ title: "مجلس 4" }] },
+              {
+                title: "مجلس 3",
+              },
               { title: "مجلس 4" },
             ],
           },

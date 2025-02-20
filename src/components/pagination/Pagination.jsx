@@ -34,7 +34,7 @@ const getVisiblePages = (currentPage, totalPages) => {
   return pages;
 };
 
-const VendorPager = ({ currentPage, totalPages, onPageChange }) => {
+const Pagination = ({ currentPage, totalPages, onPageChange }) => {
   const pages = getVisiblePages(currentPage, totalPages);
 
   return (
@@ -50,7 +50,7 @@ const VendorPager = ({ currentPage, totalPages, onPageChange }) => {
           window.scrollTo(0, 0);
         }}
       >
-        Prev
+        السابق
       </button>
 
       {/* Dynamic Page Numbers */}
@@ -88,10 +88,10 @@ const VendorPager = ({ currentPage, totalPages, onPageChange }) => {
           window.scrollTo(0, 0);
         }}
       >
-        Next
+        التالي
       </button>
     </div>
   );
 };
 
-export default VendorPager;
+export default Pagination;

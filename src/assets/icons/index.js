@@ -10,3 +10,4 @@ export { ReactComponent as LogoutIcon } from "./logout.svg";
 export { ReactComponent as PrintIcon } from "./print.svg";
 export { ReactComponent as VehicleIcon } from "./vehicle.svg";
 export { ReactComponent as InfoIcon } from "./info.svg";
+export { ReactComponent as TriangleDownIcon } from "./triangle-down.svg";
