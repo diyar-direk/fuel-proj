@@ -2,7 +2,7 @@ import { Outlet } from "react-router-dom";
 import Navbar from "../navbar/Navbar";
 import PagePath from "../PagePath";
 import { useCallback, useState } from "react";
-import { VehicleIcon } from "../../assets/icons";
+import { ReactComponent as VehicleIcon } from "src/assets/icons/vehicle.svg";
 
 function Layout() {
   const [mainPath] = useState({

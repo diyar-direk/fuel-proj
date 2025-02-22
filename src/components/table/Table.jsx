@@ -3,7 +3,7 @@ import Pagination from "../pagination/Pagination";
 import { twMerge } from "tailwind-merge";
 import Loading from "../skeleton/Loading";
 import LinearLoading from "../skeleton/LinearLoading";
-import { TriangleDownIcon } from "../../assets/icons";
+import { ReactComponent as TriangleDownIcon } from "src/assets/icons/triangle-down.svg";
 
 /**
  * @callback getCell
