@@ -16,7 +16,11 @@ import { twMerge } from "tailwind-merge";
  */
 function Row({ children, className = "", cellLength = 1, style, ...props }) {
   const classNameMemo = useMemo(
-    (i) => twMerge(`grid py-2 `, className),
+    (i) =>
+      twMerge(
+        `grid py-2 hover:bg-gray-main  duration-[40ms] select-none`,
+        className
+      ),
     [className]
   );
 

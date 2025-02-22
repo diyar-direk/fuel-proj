@@ -18,7 +18,7 @@ function BodyCell({ className = "", children, ...props }) {
   const classNameMemo = useMemo(
     () =>
       twMerge(
-        `text-black text-base max-lg:text-xs flex justify-center items-center py-2 gap-x-2`,
+        `text-base max-lg:text-xs flex justify-center items-center py-2 gap-x-2`,
         className
       ),
     [className]

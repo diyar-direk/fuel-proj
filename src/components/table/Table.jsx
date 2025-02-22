@@ -1,16 +1,19 @@
 import React, { useCallback } from "react";
 import Pagination from "../pagination/Pagination";
-import Loading from "../skeleton/Loading";
 import LinearLoading from "../skeleton/LinearLoading";
-import Row from "./Row";
-import HeaderCell from "./HeaderCell";
-import SortButton from "../buttons/SortButton";
-import BodyCell from "./BodyCell";
 import Container from "./Container";
+import Body from "./Body";
+import Head from "./Head";
 
 /**
  * @callback getCell
  * @param {object} row
+ */
+
+/**
+ * @typedef selectedRows
+ * @property {boolean} selectAll
+ * @property {{[id:number]:row}} selectedRows
  */
 
 /**
@@ -33,7 +36,6 @@ import Container from "./Container";
  * @property {string} className
  * @property {type} type
  * @property {boolean} sort
- * @property {sortStatus} defaultSort
  */
 /**
  * @typedef utils
@@ -49,6 +51,9 @@ import Container from "./Container";
  * @property {boolean} props.secondaryLoading
  * @property {object} sortStatuses
  * @property {(name:string, sortStatus:sortStatus)=>void} onSortChange
+ * @property {(selectedRows:selectedRows)=>void} onSelectRows
+ * @property {selectedRows} selectedRows
+ * @property {boolean} selectable
  */
 
 /**
@@ -73,6 +78,9 @@ function Table(props = { columns: [], rows: [] }) {
     secondaryLoading,
     sortStatuses,
     onSortChange = () => {},
+    onSelectRows = () => {},
+    selectedRows,
+    selectable,
   } = props;
 
   const handleSortClick = useCallback(
@@ -85,58 +93,77 @@ function Table(props = { columns: [], rows: [] }) {
     [onSortChange]
   );
 
-  const cellLength = columns.length;
+  const handleSelectRow = useCallback(
+    (row) =>
+      /**
+       * @param {React.ChangeEvent<HTMLInputElement>} e
+       */
+      (e) => {
+        const name = e.target.name;
+        const checked = e.target.checked;
+
+        if (name === "selectAll") {
+          if (checked) {
+            onSelectRows({
+              selectAll: true,
+              selectedRows: Object.fromEntries(
+                rows.map((row) => [row.id, row])
+              ),
+            });
+          } else {
+            onSelectRows({ selectAll: false, selectedRows: {} });
+          }
+
+          return;
+        }
+        const newSelectedRows = {
+          ...(selectedRows.selectedRows || {}),
+        };
+
+        if (checked) {
+          newSelectedRows[row.id] = row;
+        } else {
+          delete newSelectedRows[row.id];
+        }
+
+        onSelectRows({
+          selectAll: Object.keys(newSelectedRows).length === rows.length,
+          selectedRows: newSelectedRows,
+        });
+      },
+    [rows, onSelectRows, selectedRows]
+  );
+
+  const cellLength = columns.length + (selectable ? 1 : 0);
 
   return (
     <Container {...containerProps}>
       <div>
-        <Row
+        <Head
           {...headerProps}
           cellLength={cellLength}
-          className={"bg-primary-light " + headerProps.className}
-        >
-          {columns.map((column) => (
-            <HeaderCell key={column.name}>
-              {column.headerName}
-              {column.sort && (
-                <SortButton
-                  onClick={handleSortClick(column)}
-                  sortStatus={sortStatuses[column.name]}
-                />
-              )}
-            </HeaderCell>
-          ))}
-        </Row>
+          columns={columns}
+          handleSelectRow={handleSelectRow}
+          handleSortClick={handleSortClick}
+          selectAll={selectedRows.selectAll}
+          sortStatuses={sortStatuses}
+          selectable={selectable}
+        />
         {!loading && secondaryLoading ? (
           <LinearLoading />
         ) : (
           <div className="h-[3px]"></div>
         )}
-        <div>
-          {loading ? (
-            <div className="flex justify-center items-center h-96">
-              <Loading />
-            </div>
-          ) : (
-            rows.map((row, i) => (
-              <Row
-                {...bodyProps}
-                key={row?.id}
-                cellLength={cellLength}
-                className={
-                  ((i & 1) === 1 ? "bg-primary-light" : "bg-secondary-main") +
-                  bodyProps.className
-                }
-              >
-                {columns.map((column) => (
-                  <BodyCell key={column.name} className={column.className}>
-                    {column.getCell ? column.getCell(row) : row[column.name]}
-                  </BodyCell>
-                ))}
-              </Row>
-            ))
-          )}
-        </div>
+        <Body
+          columns={columns}
+          bodyRowProps={bodyProps}
+          cellLength={cellLength}
+          handleSelectRow={handleSelectRow}
+          loading={loading}
+          rows={rows}
+          selectedRows={selectedRows.selectedRows}
+          selectable={selectable}
+        />
       </div>
       <Pagination
         currentPage={currentPage}
