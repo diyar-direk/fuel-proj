@@ -1,9 +1,12 @@
-import React, { useCallback, useMemo } from "react";
+import React, { useCallback } from "react";
 import Pagination from "../pagination/Pagination";
-import { twMerge } from "tailwind-merge";
 import Loading from "../skeleton/Loading";
 import LinearLoading from "../skeleton/LinearLoading";
-import { ReactComponent as TriangleDownIcon } from "src/assets/icons/triangle-down.svg";
+import Row from "./Row";
+import HeaderCell from "./HeaderCell";
+import SortButton from "../buttons/SortButton";
+import BodyCell from "./BodyCell";
+import Container from "./Container";
 
 /**
  * @callback getCell
@@ -76,102 +79,34 @@ function Table(props = { columns: [], rows: [] }) {
     /**
      * @param {column} column
      */
-    (column) => () => {
-      onSortChange(
-        column.name,
-        sortStatuses[column.name] === "ASC" ? "DESC" : "ASC"
-      );
+    (column) => (sortStatus) => {
+      onSortChange(column.name, sortStatus);
     },
-    [onSortChange, sortStatuses]
+    [onSortChange]
   );
 
-  const containerClassName = useMemo(
-    () =>
-      twMerge(
-        "bg-secondary-main min-h-full flex flex-col justify-between",
-        containerProps.className
-      ),
-    [containerProps]
-  );
-
-  const headerClassName = useMemo(
-    () =>
-      twMerge(
-        `grid 2xl:grid-cols-${columns.length} bg-primary-light py-2`,
-        headerProps.className
-      ),
-    [headerProps, columns]
-  );
-
-  const bodyClassName = useCallback(
-    (i) =>
-      twMerge(
-        ` w-full py-2 grid items-center grid-cols-3 2xl:grid-cols-${
-          columns.length
-        } ${(i & 1) === 0 ? "bg-secondary-main" : "bg-primary-light"}`,
-        bodyProps.className
-      ),
-    [bodyProps, columns]
-  );
-
-  const bodyCellClassName = useCallback(
-    (column) =>
-      twMerge(
-        `text-black text-xs lg:text-base flex justify-center py-2`,
-        column.className
-      ),
-    []
-  );
-
-  const handleSortStatusStyle = useCallback(
-    /**
-     * @param {sortStatus} sortStatus
-     */
-    (sortStatus) => {
-      switch (sortStatus) {
-        case "ASC":
-          return "rotate-0";
-        case "DESC":
-          return "rotate-180";
-        default:
-          return "rotate-90";
-      }
-    },
-    []
-  );
+  const cellLength = columns.length;
 
   return (
-    <div {...containerProps} className={containerClassName}>
+    <Container {...containerProps}>
       <div>
-        <div
+        <Row
           {...headerProps}
-          className={headerClassName}
-          style={{
-            gridTemplateColumns: `repeat(${columns.length}, minmax(0, 1fr))`,
-          }}
+          cellLength={cellLength}
+          className={"bg-primary-light " + headerProps.className}
         >
           {columns.map((column) => (
-            <div
-              key={column.name}
-              className={twMerge(
-                "text-primary-main max-lg:text-xs text-base flex justify-center py-2 items-center gap-x-2 ",
-                column.headerClassName
-              )}
-            >
+            <HeaderCell key={column.name}>
               {column.headerName}
               {column.sort && (
-                <button onClick={handleSortClick(column)} className="mt-1">
-                  <TriangleDownIcon
-                    className={`w-4 h-4 duration-150 ${handleSortStatusStyle(
-                      sortStatuses[column.name]
-                    )}`}
-                  />
-                </button>
+                <SortButton
+                  onClick={handleSortClick(column)}
+                  sortStatus={sortStatuses[column.name]}
+                />
               )}
-            </div>
+            </HeaderCell>
           ))}
-        </div>
-
+        </Row>
         {!loading && secondaryLoading ? (
           <LinearLoading />
         ) : (
@@ -184,20 +119,21 @@ function Table(props = { columns: [], rows: [] }) {
             </div>
           ) : (
             rows.map((row, i) => (
-              <div
+              <Row
                 {...bodyProps}
                 key={row?.id}
-                className={bodyClassName(i)}
-                style={{
-                  gridTemplateColumns: `repeat(${columns.length}, minmax(0, 1fr))`,
-                }}
+                cellLength={cellLength}
+                className={
+                  ((i & 1) === 1 ? "bg-primary-light" : "bg-secondary-main") +
+                  bodyProps.className
+                }
               >
                 {columns.map((column) => (
-                  <div key={column.name} className={bodyCellClassName(column)}>
+                  <BodyCell key={column.name} className={column.className}>
                     {column.getCell ? column.getCell(row) : row[column.name]}
-                  </div>
+                  </BodyCell>
                 ))}
-              </div>
+              </Row>
             ))
           )}
         </div>
@@ -207,7 +143,7 @@ function Table(props = { columns: [], rows: [] }) {
         onPageChange={onPageChange}
         totalPages={totalPages}
       />
-    </div>
+    </Container>
   );
 }
 
