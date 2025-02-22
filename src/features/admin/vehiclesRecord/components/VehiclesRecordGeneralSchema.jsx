@@ -1,10 +1,10 @@
 import { memo } from "react";
-import ShowSchema from "../../../../components/ShowSchema/ShowSchema";
-import { HomeIcon } from "../../../../assets/icons";
+import ShowSchema from "src/components/ShowSchema/ShowSchema";
+import { ReactComponent as HomeIcon } from "src/assets/icons/home.svg";
 
 function VehiclesRecordGeneralSchema() {
   return (
-    <div className="flex justify-center items-center mr-4 ml-8 max-md:mr-2">
+    <div className="flex justify-center mx-1">
       <ShowSchema
         title={
           <div className="flex items-center ">
@@ -23,7 +23,9 @@ function VehiclesRecordGeneralSchema() {
             children: [
               { title: "مجلس 1" },
               { title: "مجلس 2" },
-              { title: "مجلس 3", children: [{ title: "مجلس 4" }] },
+              {
+                title: "مجلس 3",
+              },
               { title: "مجلس 4" },
             ],
           },

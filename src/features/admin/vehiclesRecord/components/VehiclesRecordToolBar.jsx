@@ -1,15 +1,13 @@
 import { memo } from "react";
-import Tooltip from "../../../../components/Tooltip";
-import IconButton from "../../../../components/buttons/IconButton";
-import {
-  AddIcon,
-  EditIcon,
-  FilterIcon,
-  InfoIcon,
-  PrintIcon,
-  RemoveIcon,
-  SearchIcon,
-} from "../../../../assets/icons";
+import Tooltip from "src/components/Tooltip";
+import IconButton from "src/components/buttons/IconButton";
+import { ReactComponent as AddIcon } from "src/assets/icons/add.svg";
+import { ReactComponent as EditIcon } from "src/assets/icons/edit.svg";
+import { ReactComponent as FilterIcon } from "src/assets/icons/filter.svg";
+import { ReactComponent as InfoIcon } from "src/assets/icons/info.svg";
+import { ReactComponent as PrintIcon } from "src/assets/icons/print.svg";
+import { ReactComponent as RemoveIcon } from "src/assets/icons/remove.svg";
+import { ReactComponent as SearchIcon } from "src/assets/icons/search.svg";
 
 function VehiclesRecordToolBar() {
   return (

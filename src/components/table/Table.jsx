@@ -1,12 +1,18 @@
-import React, { useMemo } from "react";
-import VendorPager from "../pagers/VendorPager/VendorPager";
+import React, { useCallback, useMemo } from "react";
+import Pagination from "../pagination/Pagination";
 import { twMerge } from "tailwind-merge";
-import Loading from "../Skeleton/Loading";
-import LinearLoading from "../Skeleton/LinearLoading";
+import Loading from "../skeleton/Loading";
+import LinearLoading from "../skeleton/LinearLoading";
+import { ReactComponent as TriangleDownIcon } from "src/assets/icons/triangle-down.svg";
 
 /**
  * @callback getCell
  * @param {object} row
+ */
+
+/**
+ * @typedef sortStatus
+ * @type {"ASC"|"DESC"}
  */
 
 /**
@@ -23,20 +29,32 @@ import LinearLoading from "../Skeleton/LinearLoading";
  * @property {getCell} getCell
  * @property {string} className
  * @property {type} type
+ * @property {boolean} sort
+ * @property {sortStatus} defaultSort
+ */
+/**
+ * @typedef utils
+ * @property {column[]} props.columns
+ * @property {[]} props.rows
+ * @property {number} props.currentPage
+ * @property {number} props.totalPages
+ * @property {function} props.onPageChange
+ * @property {React.HTMLAttributes<HTMLDivElement>} props.containerProps
+ * @property {React.HTMLAttributes<HTMLDivElement>} props.headerProps
+ * @property {React.HTMLAttributes<HTMLDivElement>} props.bodyProps
+ * @property {boolean} props.loading
+ * @property {boolean} props.secondaryLoading
+ * @property {object} sortStatuses
+ * @property {(name:string, sortStatus:sortStatus)=>void} onSortChange
  */
 
 /**
- * @param {object} props
- * @param {column[]} props.columns
- * @param {[]} props.rows
- * @param {number} props.currentPage
- * @param {number} props.totalPages
- * @param {function} props.onPageChange
- * @param {React.HTMLAttributes<HTMLDivElement>} props.containerProps
- * @param {React.HTMLAttributes<HTMLDivElement>} props.headerProps
- * @param {React.HTMLAttributes<HTMLDivElement>} props.bodyProps
- * @param {boolean} props.loading
- * @param {boolean} props.secondaryLoading
+ * @typedef tableProps
+ * @type {utils}
+ */
+
+/**
+ * @param {tableProps} props
  */
 function Table(props = { columns: [], rows: [] }) {
   const {
@@ -50,50 +68,114 @@ function Table(props = { columns: [], rows: [] }) {
     bodyProps = { className: "" },
     loading,
     secondaryLoading,
+    sortStatuses,
+    onSortChange = () => {},
   } = props;
 
-  const bodyClassName = useMemo(
+  const handleSortClick = useCallback(
+    /**
+     * @param {column} column
+     */
+    (column) => () => {
+      onSortChange(
+        column.name,
+        sortStatuses[column.name] === "ASC" ? "DESC" : "ASC"
+      );
+    },
+    [onSortChange, sortStatuses]
+  );
+
+  const containerClassName = useMemo(
     () =>
       twMerge(
-        ` w-full mt-4 py-2 border-b-[#23232133] border-b-[0.5px] grid items-center grid-cols-3 3xl:grid-cols-${columns.length}`,
+        "bg-secondary-main min-h-full flex flex-col justify-between",
+        containerProps.className
+      ),
+    [containerProps]
+  );
+
+  const headerClassName = useMemo(
+    () =>
+      twMerge(
+        `grid 2xl:grid-cols-${columns.length} bg-primary-light py-2`,
+        headerProps.className
+      ),
+    [headerProps, columns]
+  );
+
+  const bodyClassName = useCallback(
+    (i) =>
+      twMerge(
+        ` w-full py-2 grid items-center grid-cols-3 2xl:grid-cols-${
+          columns.length
+        } ${(i & 1) === 0 ? "bg-secondary-main" : "bg-primary-light"}`,
         bodyProps.className
       ),
     [bodyProps, columns]
   );
 
+  const bodyCellClassName = useCallback(
+    (column) =>
+      twMerge(
+        `text-black text-xs lg:text-base flex justify-center py-2`,
+        column.className
+      ),
+    []
+  );
+
+  const handleSortStatusStyle = useCallback(
+    /**
+     * @param {sortStatus} sortStatus
+     */
+    (sortStatus) => {
+      switch (sortStatus) {
+        case "ASC":
+          return "rotate-0";
+        case "DESC":
+          return "rotate-180";
+        default:
+          return "rotate-90";
+      }
+    },
+    []
+  );
+
   return (
-    <div
-      {...containerProps}
-      className={twMerge(
-        "px-6 pt-6 bg-white min-h-full flex flex-col justify-between ",
-        containerProps.className
-      )}
-    >
+    <div {...containerProps} className={containerClassName}>
       <div>
         <div
           {...headerProps}
-          className={twMerge(
-            `grid grid-cols-3 3xl:grid-cols-${columns.length} `,
-            headerProps.className
-          )}
+          className={headerClassName}
+          style={{
+            gridTemplateColumns: `repeat(${columns.length}, minmax(0, 1fr))`,
+          }}
         >
           {columns.map((column) => (
             <div
               key={column.name}
               className={twMerge(
-                "text-[#8E95A9] text-[12px] lg:text-[14px] ",
+                "text-primary-main max-lg:text-xs text-base flex justify-center py-2 items-center gap-x-2 ",
                 column.headerClassName
               )}
             >
               {column.headerName}
+              {column.sort && (
+                <button onClick={handleSortClick(column)} className="mt-1">
+                  <TriangleDownIcon
+                    className={`w-4 h-4 duration-150 ${handleSortStatusStyle(
+                      sortStatuses[column.name]
+                    )}`}
+                  />
+                </button>
+              )}
             </div>
           ))}
         </div>
 
         {!loading && secondaryLoading ? (
-          <LinearLoading className="my-1" />
+          <LinearLoading />
         ) : (
-          <div className="h-[3px] my-1"></div>
+          <div className="h-[3px]"></div>
         )}
         <div>
           {loading ? (
@@ -101,37 +183,26 @@ function Table(props = { columns: [], rows: [] }) {
               <Loading />
             </div>
           ) : (
-            rows.map((row) => (
-              <div {...bodyProps} key={row?.id} className={bodyClassName}>
-                {columns.map((column) =>
-                  column.type === "actions" ? (
-                    <div
-                      key={column.name}
-                      className={twMerge(
-                        "text-[12px] lg:text-[14px] flex gap-x-2",
-                        column.className
-                      )}
-                    >
-                      {column.getCell && column.getCell(row)}
-                    </div>
-                  ) : (
-                    <div
-                      key={column.name}
-                      className={twMerge(
-                        "text-[#626670] text-[12px] lg:text-[14px]",
-                        column.className
-                      )}
-                    >
-                      {column.getCell ? column.getCell(row) : row[column.name]}
-                    </div>
-                  )
-                )}
+            rows.map((row, i) => (
+              <div
+                {...bodyProps}
+                key={row?.id}
+                className={bodyClassName(i)}
+                style={{
+                  gridTemplateColumns: `repeat(${columns.length}, minmax(0, 1fr))`,
+                }}
+              >
+                {columns.map((column) => (
+                  <div key={column.name} className={bodyCellClassName(column)}>
+                    {column.getCell ? column.getCell(row) : row[column.name]}
+                  </div>
+                ))}
               </div>
             ))
           )}
         </div>
       </div>
-      <VendorPager
+      <Pagination
         currentPage={currentPage}
         onPageChange={onPageChange}
         totalPages={totalPages}

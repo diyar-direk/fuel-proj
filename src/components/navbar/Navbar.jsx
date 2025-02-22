@@ -1,13 +1,11 @@
-import Button from "../buttons/Button";
-import useCashingState from "../../hooks/useCashingState";
+import useCashingState from "src/hooks/useCashingState";
 import { useCallback, useMemo } from "react";
+import Button from "../buttons/Button";
 import ButtonGroup from "../buttons/ButtonGroup";
-import {
-  AgricultureIcon,
-  LogoIcon,
-  LogoutIcon,
-  VehicleIcon,
-} from "../../assets/icons";
+import { ReactComponent as AgricultureIcon } from "src/assets/icons/agriculture.svg";
+import { ReactComponent as LogoIcon } from "src/assets/icons/logo.svg";
+import { ReactComponent as LogoutIcon } from "src/assets/icons/logout.svg";
+import { ReactComponent as VehicleIcon } from "src/assets/icons/vehicle.svg";
 
 export default function Navbar() {
   const [allocationPage, setAllocationPage] = useCashingState(

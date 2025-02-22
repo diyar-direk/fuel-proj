@@ -1,7 +1,11 @@
-import React from "react";
+import useAddPath from "../../../../hooks/useAddPath";
+
+const paths = [{ children: "Example" }];
 
 function ExampleList() {
-  return <div>Example List</div>;
+  useAddPath(paths);
+
+  return <div>Example</div>;
 }
 
 export default ExampleList;
