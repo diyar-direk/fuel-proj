@@ -15,7 +15,7 @@ function SliceCard({
   ...otherProps
 }) {
   const { className: valueClassName, ...valueOtherProps } = valueProps;
-  const className = useMemo(
+  const classNameMemo = useMemo(
     () =>
       twMerge(
         `flex p-6 ${value !== null ? "justify-between" : "justify-center"}`,
@@ -34,7 +34,7 @@ function SliceCard({
   );
 
   return (
-    <Paper {...otherProps} className={classNameMEmo}>
+    <Paper {...otherProps} className={classNameMemo}>
       <h4 className="font-medium text-[24px]">{title}</h4>
       <h2 {...valueOtherProps} className={valueClassNameMemo}>
         {!isLoading && isFetching && <Loading className="w-6 h-6" />}
