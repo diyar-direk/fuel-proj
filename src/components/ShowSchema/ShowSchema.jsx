@@ -1,4 +1,4 @@
-import { memo, useMemo, useRef } from "react";
+import { memo, useCallback, useMemo, useRef, useState } from "react";
 import { twMerge } from "tailwind-merge";
 import Schema from "./Schema";
 
@@ -32,7 +32,14 @@ function ShowSchema({
     () => twMerge(`flex flex-col border-solid max-md:mt-[10px]`, className),
     [className]
   );
+
   const containerArrowsRef = useRef(null);
+
+  const [open, setOpen] = useState(true);
+
+  const handleToggle = useCallback(() => {
+    setOpen((open) => !open);
+  }, []);
 
   return (
     <div
@@ -41,17 +48,33 @@ function ShowSchema({
       ref={ref}
       {...props}
     >
-      <span className="text-sm min-w-max max-md:text-xs ">{title}</span>
-      <div className="mr-6 max-md:mr-4" ref={containerArrowsRef}>
-        {children.map((props, i) => (
-          <Schema
-            key={i}
-            i={i}
-            {...props}
-            containerArrowsRef={containerArrowsRef}
-            arrowHeight={arrowHeight}
-          />
-        ))}
+      <span
+        className="text-sm min-w-max max-md:text-xs cursor-pointer hover:text-primary-main"
+        onClick={handleToggle}
+      >
+        {title}
+      </span>
+      <div className="mr-6 max-md:mr-4 " ref={containerArrowsRef}>
+        {open ? (
+          children.map((props, i) => (
+            <Schema
+              key={i}
+              i={i}
+              {...props}
+              containerArrowsRef={containerArrowsRef}
+              arrowHeight={arrowHeight}
+            />
+          ))
+        ) : children.length ? (
+          <div
+            onClick={handleToggle}
+            className="hover:text-primary-main cursor-pointer"
+          >
+            ....
+          </div>
+        ) : (
+          <></>
+        )}
       </div>
     </div>
   );
