@@ -15,6 +15,7 @@ function Body({
   ...props
 }) {
   const [rowMouseDown, setRowMouseDown] = useState(false);
+
   const handleMouseEnter = useCallback(
     (row) => () => {
       if (rowMouseDown) {
@@ -71,6 +72,19 @@ function Body({
     return () => window.removeEventListener("mouseup", handleMouseUp);
   }, []);
 
+  const handleCheckBoxChange = useCallback(
+    (row) => (e) => {
+      if (
+        e.nativeEvent.pointerType === "mouse" ||
+        e.nativeEvent.pointerType === "touch"
+      )
+        return;
+
+      handleSelectRow(row)(e);
+    },
+    [handleSelectRow]
+  );
+
   return (
     <div {...props}>
       {loading ? (
@@ -102,7 +116,7 @@ function Body({
                     type="checkbox"
                     checked={Boolean(selectedRow)}
                     className="w-5 h-5"
-                    readOnly
+                    onChange={handleCheckBoxChange(row)}
                   />
                 </BodyCell>
               )}
