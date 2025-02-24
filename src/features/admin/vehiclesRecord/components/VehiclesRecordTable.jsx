@@ -1,4 +1,4 @@
-import { memo, useCallback } from "react";
+import { memo, useCallback, useState } from "react";
 import Table from "../../../../components/table/Table";
 import useCashingState from "../../../../hooks/useCashingState";
 
@@ -36,6 +36,7 @@ function VehiclesRecordTable() {
     },
     [setSortStatuses]
   );
+  const [selectedRows, setSelectedRows] = useState({});
 
   return (
     <div className="w-full ml-2 pb-9">
@@ -44,9 +45,12 @@ function VehiclesRecordTable() {
         rows={rows}
         onSortChange={handleSortChange}
         sortStatuses={sortStatuses}
-        totalPages={10}
+        totalPages={rows.length}
         onPageChange={setCurrentPage}
         currentPage={currentPage}
+        onSelectRows={setSelectedRows}
+        selectedRows={selectedRows}
+        selectable
       />
     </div>
   );
