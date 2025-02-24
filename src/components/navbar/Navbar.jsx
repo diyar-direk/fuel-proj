@@ -1,39 +1,51 @@
-import useCashingState from "src/hooks/useCashingState";
 import { useCallback, useMemo } from "react";
 import Button from "../buttons/Button";
 import ButtonGroup from "../buttons/ButtonGroup";
-import { ReactComponent as AgricultureIcon } from "src/assets/icons/agriculture.svg";
 import { ReactComponent as LogoIcon } from "src/assets/icons/logo.svg";
 import { ReactComponent as LogoutIcon } from "src/assets/icons/logout.svg";
-import { ReactComponent as VehicleIcon } from "src/assets/icons/vehicle.svg";
+import { changeCurrentSection, currentSectionSelector } from "src/app/slice";
+import {
+  agriculture,
+  vehicle,
+  vehiclesRecord,
+} from "src/constants/SectionsInfo";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 export default function Navbar() {
-  const [allocationPage, setAllocationPage] = useCashingState(
-    "allocationPage",
-    "vehicle"
+  const currentSection = useSelector(currentSectionSelector);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const handleClickSection = useCallback(
+    (to) => () => {
+      navigate(to);
+    },
+    [navigate]
   );
 
-  const allocationOptions = useMemo(
+  const sectoinsOptions = useMemo(
     () => [
       {
-        value: "agriculture",
-        label: "زراعي",
-        Icon: AgricultureIcon,
+        value: agriculture.name,
+        label: agriculture.label,
+        Icon: agriculture.icon,
       },
       {
-        value: "vehicle",
-        label: "آليات",
-        Icon: VehicleIcon,
+        value: vehicle.name,
+        label: vehicle.label,
+        Icon: vehicle.icon,
+        onClick: handleClickSection(vehiclesRecord.to),
       },
     ],
-    []
+    [handleClickSection]
   );
 
-  const handleAllocationChange = useCallback(
+  const handleCurrentSectionChange = useCallback(
     (e) => {
-      setAllocationPage(e.target.value);
+      dispatch(changeCurrentSection(e.target.value));
     },
-    [setAllocationPage]
+    [dispatch]
   );
 
   return (
@@ -44,9 +56,9 @@ export default function Navbar() {
         </div>
         <div className="flex gap-x-2 justify-between max-sm:flex-col max-sm:items-center w-min max-md:w-full max-sm:gap-2 ">
           <ButtonGroup
-            options={allocationOptions}
-            activeValue={allocationPage}
-            onChange={handleAllocationChange}
+            options={sectoinsOptions}
+            activeValue={currentSection}
+            onChange={handleCurrentSectionChange}
           />
           <Button
             color="danger"

@@ -60,8 +60,11 @@ function ButtonGroup({
   containerProps = { className: "" },
 }) {
   const handleClick = useCallback(
-    (name, value) => () => {
+    (name, value, option) => (e) => {
       onChange(new EventTarget(name, value));
+      if (option.onClick) {
+        option.onClick(e);
+      }
     },
     [onChange]
   );
@@ -85,7 +88,7 @@ function ButtonGroup({
             active={activeValue === value}
             index={index}
             {...option}
-            onClick={handleClick(option.name, value)}
+            onClick={handleClick(option.name, value, option)}
             activeButtonClassName={activeButtonClassName}
             activeIconClassName={activeIconClassName}
             buttonClassName={buttonClassName}

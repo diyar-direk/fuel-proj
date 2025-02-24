@@ -1,5 +1,7 @@
 import { lazy, Suspense } from "react";
 import Loading from "../../../components/skeleton/Loading";
+import { vehiclesRecord } from "src/constants/SectionsInfo";
+
 const VehiclesRecordList = lazy(() => import("./pages/VehiclesRecordList"));
 
 function useVehiclesRecord() {
@@ -8,7 +10,7 @@ function useVehiclesRecord() {
    */
   const router = [
     {
-      path: "vehicles-record",
+      path: vehiclesRecord.to,
       element: (
         <Suspense
           fallback={

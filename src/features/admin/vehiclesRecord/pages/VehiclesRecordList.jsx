@@ -1,13 +1,8 @@
 import VehiclesRecordGeneralSchema from "../components/VehiclesRecordGeneralSchema";
 import VehiclesRecordTable from "../components/VehiclesRecordTable";
 import VehiclesRecordToolBar from "../components/VehiclesRecordToolBar";
-import useAddPath from "../../../../hooks/useAddPath";
-
-const paths = [{ children: "آليات" }, { children: "محطات" }];
 
 function VehiclesRecordList() {
-  useAddPath(paths);
-
   return (
     <div>
       <div className="flex justify-between items-center px-16 max-md:px-9 max-sm:px-5 py-3">

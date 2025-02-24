@@ -10,7 +10,8 @@ export default function useCashingState(queryKey, defaultData) {
 
   const { data } = useQuery({
     queryKey: [queryKey],
-    initialData: () => defaultData,
+    initialData: () =>
+      typeof defaultData === "function" ? defaultData() : defaultData,
   });
 
   const { mutate } = useMutation({

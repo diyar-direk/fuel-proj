@@ -1,29 +1,34 @@
+import { useMemo } from "react";
 import { Outlet } from "react-router-dom";
 import Navbar from "../navbar/Navbar";
-import PagePath from "../PagePath";
-import { useCallback, useState } from "react";
-import { ReactComponent as VehicleIcon } from "src/assets/icons/vehicle.svg";
+import LinksPagesView from "../LinksPagesView";
+import SectionsInfo from "src/constants/SectionsInfo";
+import { useSelector } from "react-redux";
+import { currentSectionSelector } from "src/app/slice";
 
 function Layout() {
-  const [mainPath] = useState({
-    children: <VehicleIcon className="fill-primary-main" />,
-  });
+  const currentSection = useSelector(currentSectionSelector);
 
-  const [paths, setPaths] = useState([mainPath]);
+  const links = useMemo(() => {
+    const section = SectionsInfo[currentSection];
+    const SectionIcon = section.icon;
+    const pages = section.pages;
 
-  const handleAddPaths = useCallback(
-    (paths) => {
-      setPaths([mainPath, ...paths]);
-    },
-    [mainPath]
-  );
+    return [
+      {
+        label: <SectionIcon className="fill-primary-main" />,
+        disabled: true,
+      },
+      ...Object.values(pages).map(({ label, to }) => ({ label, to })),
+    ];
+  }, [currentSection]);
 
   return (
     <div>
       <Navbar />
-      <PagePath paths={paths} />
+      <LinksPagesView links={links} />
       <div>
-        <Outlet context={{ handleAddPaths }} />
+        <Outlet />
       </div>
     </div>
   );
