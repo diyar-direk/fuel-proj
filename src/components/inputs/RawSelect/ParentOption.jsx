@@ -1,4 +1,11 @@
-import { forwardRef, memo, useCallback, useEffect, useRef } from "react";
+import {
+  forwardRef,
+  memo,
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+} from "react";
 import { twMerge } from "tailwind-merge";
 
 function ParentOption(
@@ -54,17 +61,23 @@ function ParentOption(
     }
   }, [selected, selectedFocus]);
 
-  return (
-    <div
-      {...props}
-      className={twMerge(
+  const classNameMemo = useMemo(
+    () =>
+      twMerge(
         `px-2 py-1 w-full focus:border-[1px] border-black outline-none ${
           disabled
             ? "text-gray-500 hover:bg-none"
             : "hover:bg-primary-main hover:text-white "
         } ${selected ? "bg-primary-main text-white" : ""}`,
         className
-      )}
+      ),
+    [disabled, selected, className]
+  );
+
+  return (
+    <div
+      {...props}
+      className={classNameMemo}
       aria-selected={selected}
       tabIndex={disabled ? undefined : selected ? 0 : -1}
       aria-rowindex={i}

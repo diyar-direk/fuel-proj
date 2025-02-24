@@ -1,67 +1,57 @@
-import { memo } from "react";
+import { memo, useMemo } from "react";
 import { twMerge } from "tailwind-merge";
 
 /**
- * @typedef helperTextUtils
- * @property {string} newClassName
- */
-
-/**
- * @typedef containerUtils
- * @property {string} newClassName
- */
-
-/**
  * @typedef utils
- * @property {string} newClassName
  * @property {string} helperText
  * @property {boolean} error
- * @property {React.HTMLAttributes<HTMLDivElement> & containerUtils } containerProps
- * @property {React.HTMLAttributes<HTMLParagraphElement> & helperTextUtils} helperTextProps
+ * @property {React.HTMLAttributes<HTMLDivElement>} containerProps
+ * @property {React.HTMLAttributes<HTMLParagraphElement>} helperTextProps
  */
 
 /**
  * @param {React.InputHTMLAttributes<HTMLInputElement> & utils} props
  */
-function Input(props = { className: "", helperText: "" }) {
+function Input({ className, ...props } = { className: "", helperText: "" }) {
   const {
     helperTextProps = { className: "" },
     containerProps = { className: "" },
-    newClassName,
     error,
     helperText,
     ...otherProps
   } = props;
-  const { newClassName: newClassNameContainer, ...otherContainerProps } =
-    containerProps;
-  const { helperTextNewClassName, ...otherHelperTextProps } = helperTextProps;
+
+  const classNameMemo = useMemo(
+    () =>
+      twMerge(
+        ` w-full rounded-lg indent-1 border-black p-1 border-[1px] ${
+          props.helperText && error ? "border-danger-main" : ""
+        } 
+        ${props.disabled ? "opacity-60" : ""}
+        `,
+        className
+      ),
+    [className, props.helperText, props.disabled, error]
+  );
+
+  const containerClassNameMemo = useMemo(
+    () => twMerge(`w-full`, containerProps.className),
+    [containerProps.className]
+  );
+
+  const helperTextClassNameMemo = useMemo(
+    () =>
+      twMerge(
+        (error && "text-danger-main ") + " text-sm",
+        helperTextProps.className
+      ),
+    [error, helperTextProps.className]
+  );
 
   return (
-    <div
-      {...otherContainerProps}
-      className={twMerge(" w-full", otherContainerProps.className)}
-      {...(newClassNameContainer ? { className: newClassNameContainer } : {})}
-    >
-      <input
-        {...otherProps}
-        className={twMerge(
-          ` w-full rounded-lg indent-1 border-black p-1 border-[1px] ${
-            props.helperText ? "border-danger-main" : ""
-          }`,
-          `${otherProps.className || ""} ${props.disabled ? "opacity-60" : ""}`
-        )}
-        {...(newClassName ? { className: newClassName } : {})}
-      />
-      <p
-        {...otherHelperTextProps}
-        className={twMerge(
-          (error && "text-danger-main ") + " text-sm",
-          otherHelperTextProps.className
-        )}
-        {...(helperTextNewClassName
-          ? { className: helperTextNewClassName }
-          : {})}
-      >
+    <div {...containerProps} className={containerClassNameMemo}>
+      <input {...otherProps} className={classNameMemo} />
+      <p {...helperTextProps} className={helperTextClassNameMemo}>
         {helperText}
       </p>
     </div>

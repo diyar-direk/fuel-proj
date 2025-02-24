@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 import { twMerge } from "tailwind-merge";
 
 /**
@@ -26,18 +26,22 @@ function Button(props) {
     disabled = submitting,
     ...otherProps
   } = props;
-
   const processedDisabled = submitting || disabled;
-
-  return (
-    <button
-      disabled={processedDisabled}
-      className={twMerge(
+  const classNameMemo = useMemo(
+    () =>
+      twMerge(
         `${variant}-${
           processedDisabled ? "disabled" : color
         } btn py-2 max-lg:py-0.5 px-4 w-full`,
         `${className}`
-      )}
+      ),
+    [className, variant, processedDisabled, color]
+  );
+
+  return (
+    <button
+      disabled={processedDisabled}
+      className={classNameMemo}
       {...otherProps}
     >
       {submitting ? "Submitting..." : children}

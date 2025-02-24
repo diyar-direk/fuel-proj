@@ -1,4 +1,4 @@
-import { memo } from "react";
+import { memo, useMemo } from "react";
 import { twMerge } from "tailwind-merge";
 
 function TextArea(props = { className: "", helperText: "" }) {
@@ -12,6 +12,17 @@ function TextArea(props = { className: "", helperText: "" }) {
   } = props;
   const { newClassNameContainer, ...otherContainerProps } = containerProps;
   const { newClassNameHelperText, ...otherHelperTextProps } = helperTextProps;
+  const classNameMemo = useMemo(
+    () =>
+      twMerge(
+        ` min-h-[100px] w-full rounded-lg indent-1 border-black p-1 border-[1px] ${
+          props.helperText && error ? "border-danger-main" : ""
+        }`,
+        `${otherProps.className || ""} ${props.disabled ? "opacity-60" : ""}`
+      ),
+    [props.helperText, otherProps.className, props.disabled, error]
+  );
+
   return (
     <div
       {...otherContainerProps}
@@ -20,12 +31,7 @@ function TextArea(props = { className: "", helperText: "" }) {
     >
       <textarea
         {...otherProps}
-        className={twMerge(
-          ` min-h-[100px] w-full rounded-lg indent-1 border-black p-1 border-[1px] ${
-            props.helperText ? "border-danger-main" : ""
-          }`,
-          `${otherProps.className || ""} ${props.disabled ? "opacity-60" : ""}`
-        )}
+        className={classNameMemo}
         {...(newClassName ? { className: newClassName } : {})}
       />
       <p

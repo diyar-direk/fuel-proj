@@ -1,4 +1,4 @@
-import React, { memo } from "react";
+import React, { memo, useMemo } from "react";
 import { twMerge } from "tailwind-merge";
 /**
  * @typedef utils
@@ -13,15 +13,18 @@ import { twMerge } from "tailwind-merge";
 /**
  * @param {iconButtonProps} props
  */
-function IconButton({ children, ...props } = { className: "" }) {
-  return (
-    <button
-      {...props}
-      className={twMerge(
+function IconButton({ className = "", children, ...props }) {
+  const classNameMemo = useMemo(
+    () =>
+      twMerge(
         "hover:bg-dark-dark duration-150 ease-in-out cursor-pointer p-2 rounded-full flex justify-center items-center max-md:w-9 max-md:h-9",
-        props.className
-      )}
-    >
+        className
+      ),
+    [className]
+  );
+
+  return (
+    <button {...props} className={classNameMemo}>
       {children}
     </button>
   );

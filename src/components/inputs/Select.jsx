@@ -1,4 +1,4 @@
-import { memo } from "react";
+import { memo, useMemo } from "react";
 import { twMerge } from "tailwind-merge";
 
 function Select(props = { className: "", helperText: "" }) {
@@ -16,6 +16,17 @@ function Select(props = { className: "", helperText: "" }) {
   const { newClassNameHelperTextProps, ...otherHelperTextProps } =
     helperTextProps;
 
+  const classNameMemo = useMemo(
+    () =>
+      twMerge(
+        " h-full w-full rounded-lg indent-1 border-black p-1 border-[1px] bg-transparent",
+        `${otherProps.className || ""} ${
+          props.helperText && error ? "border-danger-main" : ""
+        } ${props.disabled ? "opacity-60" : ""}`
+      ),
+    [otherProps.className, props.helperText, props.disabled, error]
+  );
+
   return (
     <div
       {...otherContainerProps}
@@ -24,12 +35,7 @@ function Select(props = { className: "", helperText: "" }) {
     >
       <select
         {...otherProps}
-        className={twMerge(
-          " h-full w-full rounded-lg indent-1 border-black p-1 border-[1px] bg-transparent",
-          `${otherProps.className || ""} ${
-            props.helperText ? "border-danger-main" : ""
-          } ${props.disabled ? "opacity-60" : ""}`
-        )}
+        className={classNameMemo}
         {...(newClassName ? { className: newClassName } : {})}
       >
         {options.map(({ key, ...props }) => (

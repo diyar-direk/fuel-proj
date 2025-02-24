@@ -1,4 +1,5 @@
-import { memo, useState } from "react";
+import { memo, useMemo, useState } from "react";
+import { twMerge } from "tailwind-merge";
 /**
  * @typedef placement
  * @type {"top"|"left"|"right"|"bottom"}
@@ -18,13 +19,24 @@ import { memo, useState } from "react";
 /**
  * @param {tooltipProps} props
  */
-function Tooltip({ children, title, placement = "bottom", ...props }) {
+function Tooltip({
+  className = "",
+  children,
+  title,
+  placement = "bottom",
+  ...props
+}) {
   const [mouseIn, setMouseIn] = useState(false);
+
+  const classNameMemo = useMemo(
+    () => twMerge(`relative`, className),
+    [className]
+  );
 
   return (
     <div
       {...props}
-      className="relative"
+      className={classNameMemo}
       onMouseEnter={() => setMouseIn(true)}
       onMouseLeave={() => setMouseIn(false)}
     >

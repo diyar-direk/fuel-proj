@@ -1,4 +1,4 @@
-import { memo } from "react";
+import { memo, useMemo } from "react";
 import Skeleton from "../Skeleton/Skeleton";
 import Input from "./Input";
 import Select from "./Select";
@@ -34,22 +34,23 @@ function InputPlus(props) {
     titleProps = {},
     ...inputProps
   } = props;
+  const containerClassNameMemo = useMemo(
+    () => twMerge("flex flex-col gap-4", inputPlusContainerProps.className),
+    [inputPlusContainerProps.className]
+  );
+
+  const titleClassNameMemo = useMemo(
+    () =>
+      twMerge(
+        "text-[14px] lg:text-[20px] font-semibold flex gap-1",
+        titleProps.className
+      ),
+    [titleProps.className]
+  );
 
   return (
-    <div
-      {...inputPlusContainerProps}
-      className={twMerge(
-        "flex flex-col gap-4",
-        inputPlusContainerProps.className
-      )}
-    >
-      <h2
-        {...titleProps}
-        className={twMerge(
-          "text-[14px] lg:text-[20px] font-semibold flex gap-1",
-          titleProps.className
-        )}
-      >
+    <div {...inputPlusContainerProps} className={containerClassNameMemo}>
+      <h2 {...titleProps} className={titleClassNameMemo}>
         <label htmlFor={props.id}>{title}</label>
         {titleIcon}
       </h2>

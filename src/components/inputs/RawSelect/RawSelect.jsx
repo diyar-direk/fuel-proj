@@ -3,6 +3,7 @@ import React, {
   memo,
   useCallback,
   useEffect,
+  useMemo,
   useRef,
   useState,
 } from "react";
@@ -196,14 +197,29 @@ function RawSelect({
       document.removeEventListener("mousedown", handleMouseClickOutside);
   }, [handleCloseDrop]);
 
-  return (
-    <div
-      className={twMerge(
+  const containerClassNameMemo = useMemo(
+    () =>
+      twMerge(
         `border-[1px] border-black ${
           disabled ? `opacity-60` : `focus:border-[2px]`
         } h-7 rounded-md relative w-max select-none `,
         className
-      )}
+      ),
+    [disabled, className]
+  );
+
+  const optionsContainerClassNameMemo = useMemo(
+    () =>
+      twMerge(
+        "max-h-64 absolute z-50 w-full overflow-y-auto overflow-x-hidden bg-white border-[1px] border-black",
+        optionsContainer.className
+      ),
+    [optionsContainer.className]
+  );
+
+  return (
+    <div
+      className={containerClassNameMemo}
       ref={selectRef}
       tabIndex={disabled ? -1 : 0}
       onClick={handleClick}
@@ -218,10 +234,7 @@ function RawSelect({
         <div
           onKeyDown={handleOptionsKeyDown}
           {...optionsContainer}
-          className={twMerge(
-            "max-h-64 absolute z-50 w-full overflow-y-auto overflow-x-hidden bg-white border-[1px] border-black",
-            optionsContainer.className
-          )}
+          className={optionsContainerClassNameMemo}
         >
           {Children.map(children, (child, i) => {
             const selected = value.value === child.props.value;
