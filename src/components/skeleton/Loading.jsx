@@ -1,16 +1,17 @@
-import React from "react";
+import React, { useMemo } from "react";
 import { twMerge } from "tailwind-merge";
 
 /**
  * @param {React.HTMLAttributes<HTMLDivElement>} props
  */
 function Loading(props) {
+  const classNameMemo = useMemo(
+    () => twMerge(`w-8 h-8`, props.className),
+    [props.className]
+  );
+
   return (
-    <div
-      role="status"
-      {...props}
-      className={twMerge(`w-8 h-8`, props.className)}
-    >
+    <div role="status" {...props} className={classNameMemo}>
       <svg
         aria-hidden="true"
         className="text-gray-200 animate-spin dark:text-gray-600 fill-blue-600"

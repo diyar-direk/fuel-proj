@@ -1,7 +1,8 @@
+import { useMemo } from "react";
 import { twMerge } from "tailwind-merge";
 /**
  * @typedef utils
- * @property {string} newClassName
+ * @property
  */
 
 /**
@@ -12,18 +13,12 @@ import { twMerge } from "tailwind-merge";
 /**
  * @param {skeletonProps} props
  */
-function Skeleton(props = { className: "" }) {
-  const { newClassName, ...otherProps } = props;
-
-  return (
-    <div
-      {...otherProps}
-      className={twMerge(
-        "animate-pulse p-5 rounded-md bg-gray-400 ",
-        otherProps.className
-      )}
-      {...(newClassName ? { className: newClassName } : {})}
-    ></div>
+function Skeleton({ className = "", ...props }) {
+  const classNameMemo = useMemo(
+    () => twMerge("animate-pulse p-5 rounded-md bg-gray-400 ", className),
+    [className]
   );
+
+  return <div {...props} className={classNameMemo}></div>;
 }
 export default Skeleton;

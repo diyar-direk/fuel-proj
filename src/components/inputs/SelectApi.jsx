@@ -1,4 +1,4 @@
-import { memo } from "react";
+import { memo, useMemo } from "react";
 import Option from "./RawSelect/Option";
 import RawSelect from "./RawSelect/RawSelect";
 import Loading from "../Skeleton/Loading";
@@ -44,6 +44,14 @@ function SelectApi({
     queryKey,
     useInfiniteQueryOptions,
   });
+  const classNameMemo = useMemo(
+    () =>
+      twMerge(
+        `w-full h-[35px] ${helperText && error ? "border-danger-main" : ""}`,
+        props.className
+      ),
+    [props.className, helperText, error]
+  );
 
   return (
     <div>
@@ -52,10 +60,7 @@ function SelectApi({
           onScroll: handleScroll,
         }}
         {...props}
-        className={twMerge(
-          `w-full h-[35px] ${helperText && "border-danger-main"}`,
-          props.className
-        )}
+        className={classNameMemo}
       >
         {allData?.length &&
           [

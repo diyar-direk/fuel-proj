@@ -267,14 +267,29 @@ function RawAutocomplete({
     [externalOptions, valueSearch, getOptionLabel]
   );
 
-  return (
-    <div
-      className={twMerge(
+  const containerClassNameMemo = useMemo(
+    () =>
+      twMerge(
         `border-[1px] border-black ${
           disabled ? `opacity-60` : `focus:border-[2px]`
         } h-[35px] rounded-md relative w-max select-none `,
         className
-      )}
+      ),
+    [className, disabled]
+  );
+
+  const optionsContainerClassNameMemo = useMemo(
+    () =>
+      twMerge(
+        "max-h-64 absolute z-50 w-full overflow-y-auto overflow-x-hidden bg-white border-[1px] border-black",
+        optionsContainer.className
+      ),
+    [optionsContainer.className]
+  );
+
+  return (
+    <div
+      className={containerClassNameMemo}
       ref={selectRef}
       onClick={handleClick}
       {...props}
@@ -295,10 +310,7 @@ function RawAutocomplete({
           onKeyDown={handleOptionsContainerKeyDown}
           ref={optionsContainerRef}
           {...optionsContainer}
-          className={twMerge(
-            "max-h-64 absolute z-50 w-full overflow-y-auto overflow-x-hidden bg-white border-[1px] border-black",
-            optionsContainer.className
-          )}
+          className={optionsContainerClassNameMemo}
         >
           {filteredOptions.length ? (
             filteredOptions.map((option, i) => {

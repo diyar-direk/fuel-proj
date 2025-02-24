@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import useSelectApi from "../../hooks/useSelectApi";
 import RawAutocomplete from "./RawAutocomplete";
 import Loading from "../Skeleton/Loading";
@@ -45,6 +45,15 @@ function AutocompleteApi({
     useInfiniteQueryOptions,
   });
 
+  const classNameMemo = useMemo(
+    () =>
+      twMerge(
+        `w-full h-[35px] ${helperText && error && "border-danger-main"}`,
+        props.className
+      ),
+    [props.className, helperText]
+  );
+
   return (
     <div>
       <RawAutocomplete
@@ -89,10 +98,7 @@ function AutocompleteApi({
               ]),
         ]}
         {...props}
-        className={twMerge(
-          `w-full h-[35px] ${helperText && "border-danger-main"}`,
-          props.className
-        )}
+        className={classNameMemo}
       ></RawAutocomplete>
     </div>
   );
