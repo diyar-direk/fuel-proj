@@ -25,13 +25,13 @@ function Input({ className, ...props } = { className: "", helperText: "" }) {
     () =>
       twMerge(
         ` w-full rounded-lg indent-1 border-black p-1 border-[1px] ${
-          props.helperText && error ? "border-danger-main" : ""
+          helperText && error ? "border-danger-main" : ""
         } 
         ${props.disabled ? "opacity-60" : ""}
         `,
         className
       ),
-    [className, props.helperText, props.disabled, error]
+    [className, helperText, props.disabled, error]
   );
 
   const containerClassNameMemo = useMemo(
