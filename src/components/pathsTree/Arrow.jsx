@@ -24,7 +24,6 @@ function Arrow({
   arrowHeight,
   borderStyle = "border-dashed",
   style = {},
-  lastChild,
   ...props
 }) {
   const classNameMemo = useMemo(

@@ -5,14 +5,17 @@ import { isBeforeLastIndex } from "src/utils/isBeforeLastIndex";
 
 /**
  * @typedef utils
- * @property {string} title
+ * @property {(selected:boolean)=>void|any} title
  * @property {utils[]} children
  * @property {number} arrowHeight - arrowHeight (the default: 40)
  * @property {React.Ref<HTMLDivElement> | undefined} ref
  * @property {import("./Arrow").arrowProps} arrowProps
  * @property {import("./Arrow").borderStyle} borderStyle
  * @property {object} openStore
- * @property {setOpenStore} setOpenStore
+ * @property {function} setOpenStore
+ * @property {any} value
+ * @property {(value:any)=>void} onChange
+ * @property {any} selectedValue
  */
 
 /**
@@ -35,6 +38,9 @@ function PathsTree({
   setOpenStore,
   arrowProps,
   borderStyle = "border-dashed",
+  onChange = () => {},
+  value,
+  selectedValue,
   ...props
 }) {
   const openIndex = `${depth}${i}`;
@@ -73,6 +79,7 @@ function PathsTree({
   const lastChild = children[childrenLength - 1];
 
   const lastChildHasChildren = lastChild?.children?.length > 0;
+  const isSelected = value === selectedValue;
 
   return (
     <div
@@ -82,10 +89,15 @@ function PathsTree({
       {...props}
     >
       <span
-        className="text-sm min-w-max max-md:text-xs cursor-pointer hover:text-primary-main relative top-2 z-10  "
-        onClick={handleToggle}
+        className={`text-sm min-w-max max-md:text-xs cursor-pointer hover:text-primary-main relative top-2 z-10 select-none ${
+          isSelected ? "text-primary-dark font-bold" : ""
+        } `}
+        onDoubleClick={handleToggle}
+        onClick={() => {
+          onChange(value);
+        }}
       >
-        {title}
+        {typeof title === "function" ? title(isSelected) : title}
         {!open && childrenLength ? <div className="text-end">....</div> : <></>}
       </span>
       <div
@@ -117,6 +129,8 @@ function PathsTree({
                 depth={depth + 1}
                 setOpenStore={setOpenStore}
                 openStore={openStore}
+                onChange={onChange}
+                selectedValue={selectedValue}
               />
             </div>
           ))
