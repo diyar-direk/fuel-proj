@@ -18,23 +18,22 @@ function Row({ children, className = "", cellLength = 1, style, ...props }) {
   const classNameMemo = useMemo(
     (i) =>
       twMerge(
-        `grid py-2 hover:bg-gray-main  duration-[40ms] select-none`,
+        `py-2 hover:bg-gray-main duration-[40ms] select-none `,
         className
       ),
     [className]
   );
 
   return (
-    <div
+    <tr
       {...props}
       className={classNameMemo}
-      style={{
-        gridTemplateColumns: `repeat(${cellLength}, minmax(0, 1fr))`,
-        ...style,
-      }}
+      // style={{
+      // ...style,
+      // }}
     >
       {children}
-    </div>
+    </tr>
   );
 }
 

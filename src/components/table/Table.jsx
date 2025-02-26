@@ -1,6 +1,5 @@
 import React, { useCallback } from "react";
 import Pagination from "../pagination/Pagination";
-import LinearLoading from "../skeleton/LinearLoading";
 import Container from "./Container";
 import Body from "./Body";
 import Head from "./Head";
@@ -132,32 +131,32 @@ function Table(props = { columns: [], rows: [] }) {
 
   return (
     <Container {...containerProps}>
-      <div>
-        <Head
-          {...headerProps}
-          cellLength={cellLength}
-          columns={columns}
-          handleSelectRow={handleSelectRow}
-          handleSortClick={handleSortClick}
-          selectAll={selectAll}
-          sortStatuses={sortStatuses}
-          selectable={selectable}
-        />
-        {!loading && secondaryLoading ? (
-          <LinearLoading />
-        ) : (
-          <div className="h-[3px]"></div>
-        )}
-        <Body
-          columns={columns}
-          bodyRowProps={bodyProps}
-          cellLength={cellLength}
-          handleSelectRow={handleSelectRow}
-          loading={loading}
-          rows={rows}
-          selectedRows={selectedRows}
-          selectable={selectable}
-        />
+      <div className="overflow-x-auto w-full max-w-full">
+        <table className="w-full min-w-max table-auto border-collapse">
+          <thead>
+            <Head
+              {...headerProps}
+              cellLength={cellLength}
+              columns={columns}
+              handleSelectRow={handleSelectRow}
+              handleSortClick={handleSortClick}
+              selectAll={selectAll}
+              sortStatuses={sortStatuses}
+              selectable={selectable}
+            />
+          </thead>
+          <Body
+            secondaryLoading={secondaryLoading}
+            columns={columns}
+            bodyRowProps={bodyProps}
+            cellLength={cellLength}
+            handleSelectRow={handleSelectRow}
+            loading={loading}
+            rows={rows}
+            selectedRows={selectedRows}
+            selectable={selectable}
+          />
+        </table>
       </div>
       <Pagination
         currentPage={currentPage}

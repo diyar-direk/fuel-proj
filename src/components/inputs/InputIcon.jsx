@@ -38,7 +38,7 @@ function InputIcon({
   const inputFrameMemo = useMemo(
     () =>
       twMerge(
-        `flex items-stretch bg-secondary-main rounded-full px-3 py-2 h-full
+        `flex items-stretch bg-secondary-main rounded-full px-3 py-2 h-full justify-between
               ${props.disabled ? "opacity-60" : ""} ${
           focus ? " outline-1 outline outline-primary-main " : ""
         } ${

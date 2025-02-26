@@ -34,7 +34,7 @@ function VehiclesRecordGeneralSchema() {
   const [value, setValue] = useState("");
 
   return (
-    <div className="flex justify-center mx-1">
+    <div className="flex justify-center mx-1 w-1/5 max-md:w-2/5">
       <PathsTree
         title={title}
         children={children}

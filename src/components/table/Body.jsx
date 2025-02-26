@@ -2,6 +2,7 @@ import { memo, useCallback, useEffect, useState } from "react";
 import Loading from "../skeleton/Loading";
 import Row from "./Row";
 import BodyCell from "./BodyCell";
+import LinearLoading from "../skeleton/LinearLoading";
 
 function Body({
   loading,
@@ -12,6 +13,7 @@ function Body({
   handleSelectRow,
   selectedRows,
   selectable,
+  secondaryLoading,
   ...props
 }) {
   const [rowMouseDown, setRowMouseDown] = useState(false);
@@ -93,11 +95,28 @@ function Body({
   );
 
   return (
-    <div {...props}>
+    <tbody {...props} className="relative">
+      {!loading && secondaryLoading ? (
+        <tr>
+          <td>
+            <LinearLoading className="absolute w-full h-[3px]" />
+          </td>
+        </tr>
+      ) : (
+        <tr>
+          <td>
+            <div className="h-[3px]"></div>
+          </td>
+        </tr>
+      )}
       {loading ? (
-        <div className="flex justify-center items-center h-96">
-          <Loading />
-        </div>
+        <tr>
+          <td className="h-96">
+            <div className="flex justify-center items-center absolute top-1/2 rtl:right-1/2 left-1/2 -translate-x-1/2 translate-y-1/2 w-fit">
+              <Loading />
+            </div>
+          </td>
+        </tr>
       ) : (
         rows.map((row, i) => {
           const selectedRow = selectedRows.has(row.id);
@@ -122,7 +141,7 @@ function Body({
                   <input
                     type="checkbox"
                     checked={selectedRow}
-                    className="w-5 h-5"
+                    className="w-5 h-5 max-lg:w-4 max-lg:h-4"
                     onChange={handleCheckBoxChange(row)}
                   />
                 </BodyCell>
@@ -139,7 +158,7 @@ function Body({
           );
         })
       )}
-    </div>
+    </tbody>
   );
 }
 export default memo(Body);

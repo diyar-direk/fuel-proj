@@ -18,15 +18,15 @@ function HeaderCell({ className = "", children, ...props }) {
   const classNameMemo = useMemo(
     () =>
       twMerge(
-        "text-primary-main text-base max-lg:text-xs flex justify-center items-center py-2 gap-x-2 ",
+        "text-primary-main text-base max-lg:text-xs max-lg:py-2 py-5 px-1",
         className
       ),
     [className]
   );
   return (
-    <div className={classNameMemo} {...props}>
+    <th className={classNameMemo} {...props} align="center">
       {children}
-    </div>
+    </th>
   );
 }
 

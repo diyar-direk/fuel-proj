@@ -18,15 +18,15 @@ function BodyCell({ className = "", children, ...props }) {
   const classNameMemo = useMemo(
     () =>
       twMerge(
-        `text-base max-lg:text-xs flex justify-center items-center py-2 gap-x-2`,
+        `text-base max-lg:text-xs max-lg:py-2 py-5 truncate max-w-[100px]`,
         className
       ),
     [className]
   );
   return (
-    <div className={classNameMemo} {...props}>
+    <td className={classNameMemo} {...props} align="center">
       {children}
-    </div>
+    </td>
   );
 }
 

@@ -34,11 +34,16 @@ function VehiclesRecordList() {
 
   return (
     <div>
-      <div className="flex justify-between items-center px-16 max-md:px-9 max-sm:px-5 py-3">
-        <p className="text-primary-main text-2xl max-md:text-xl max-sm:text-base font-medium min-w-max">
-          استعراض سجل الآليات
-        </p>
-        <HorizontalScrollableList items={items} className="mx-2" />
+      <div className="flex justify-between  px-16 py-3 max-xl:px-4 max-lg:flex-col">
+        <div className="flex lg:justify-center items-center ">
+          <p className="text-primary-main text-2xl max-md:text-xl max-sm:text-base font-medium min-w-max">
+            استعراض سجل الآليات
+          </p>
+          <HorizontalScrollableList
+            items={items}
+            className="mx-2 max-w-[46vw] max-2xl:max-w-[33vw]  max-lg:max-w-full "
+          />
+        </div>
         <VehiclesRecordToolBar selectedRows={selectedRows} />
       </div>
       <div className="flex gap-2 bg-secondary-main">

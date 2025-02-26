@@ -9,7 +9,7 @@ const columns = [
   { name: "chassisNumber", headerName: "رقم الهيكل", sort: true },
   { name: "model", headerName: "المودل", sort: true },
   { name: "color", headerName: "اللون", sort: true },
-  { name: "type", headerName: "النوع", sort: true },
+  { name: "type", headerName: "النوعsssssssssssss", sort: true },
   { name: "document", headerName: "الوثيقة", sort: true },
   { name: "documentNumber", headerName: "رقم الوثيقة", sort: true },
   { name: "source", headerName: "المصدر", sort: true },
@@ -39,7 +39,7 @@ function VehiclesRecordTable({
   );
 
   return (
-    <div className="w-full ml-2 pb-9">
+    <div className="ml-2 pb-9 w-4/5 max-md:w-3/5">
       <Table
         columns={columns}
         rows={rows}
@@ -58,12 +58,12 @@ function VehiclesRecordTable({
 
 export default memo(VehiclesRecordTable);
 
-const rows = Array.from({ length: 10 }, (_, k) => ({
+export const rows = Array.from({ length: 10 }, (_, k) => ({
   id: k + 1,
   owner: "محمد علي",
   plateNumber: 12478,
   chassisNumber: 12478,
-  model: "مارسيدس",
+  model: k === 4 ? "dasdsahdioashdohofsihdfiodsfhoshdo" : "مارسيدس",
   color: "أبيض",
   type: "النوع",
   document: "الوثيقة",

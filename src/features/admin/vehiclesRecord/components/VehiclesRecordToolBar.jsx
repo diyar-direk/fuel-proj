@@ -13,7 +13,7 @@ function VehiclesRecordToolBar({ selectedRows }) {
     <div className="flex items-center gap-3 max-md:gap-1">
       <InputIcon
         EndIcon={SearchIcon}
-        className="w-[25vw] "
+        // className="w-[25vw] "
         containerProps={{ className: "max-md:h-10" }}
       />
       <Tooltip title="Filter">
