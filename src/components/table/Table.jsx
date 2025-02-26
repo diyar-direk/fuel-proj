@@ -48,6 +48,7 @@ import Head from "./Head";
  * @property {(selectedRows:Set<number>)=>void} onSelectRows
  * @property {Set<number>} selectedRows
  * @property {boolean} selectable
+ * @property {number} maxVisibleNeighbors - Number of neighbors to show on each side of the current page (the default: 2)
  */
 
 /**
@@ -75,6 +76,7 @@ function Table(props = { columns: [], rows: [] }) {
     onSelectRows = () => {},
     selectedRows,
     selectable,
+    maxVisibleNeighbors = 2,
   } = props;
 
   const handleSortClick = useCallback(
@@ -161,6 +163,7 @@ function Table(props = { columns: [], rows: [] }) {
         currentPage={currentPage}
         onPageChange={onPageChange}
         totalPages={totalPages}
+        maxVisibleNeighbors={maxVisibleNeighbors}
       />
     </Container>
   );

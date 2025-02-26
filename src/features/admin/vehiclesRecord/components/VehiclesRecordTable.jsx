@@ -1,4 +1,4 @@
-import { memo, useCallback, useState } from "react";
+import { memo, useCallback } from "react";
 import Table from "../../../../components/table/Table";
 import useCashingState from "../../../../hooks/useCashingState";
 

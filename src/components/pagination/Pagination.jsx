@@ -1,11 +1,14 @@
-import React from "react";
+import React, { memo, useMemo } from "react";
 
-const getVisiblePages = (currentPage, totalPages) => {
-  const maxVisibleNeighbors = 1; // Number of neighbors to show on each side of the current page
+const getVisiblePages = (
+  currentPage,
+  totalPages,
+  maxVisibleNeighbors = 2 // Number of neighbors to show on each side of the current page
+) => {
   const pages = [];
 
   // Always show the first page
-  if (currentPage > 3) {
+  if (currentPage > 3 + maxVisibleNeighbors) {
     pages.push(1, 2, "...");
   } else {
     for (let i = 1; i < Math.min(3, totalPages + 1); i++) {
@@ -23,19 +26,27 @@ const getVisiblePages = (currentPage, totalPages) => {
   }
 
   // Always show the last pages
-  if (currentPage < totalPages - 2) {
+  if (currentPage < totalPages - 4) {
     pages.push("...", totalPages - 1, totalPages);
   } else {
     for (let i = Math.max(totalPages - 3, 1); i <= totalPages; i++) {
-      if (!pages.includes(i)) pages.push(i);
+      if (!pages.includes(i) && i > currentPage) pages.push(i);
     }
   }
 
   return pages;
 };
 
-const Pagination = ({ currentPage, totalPages, onPageChange }) => {
-  const pages = getVisiblePages(currentPage, totalPages);
+function Pagination({
+  currentPage,
+  totalPages,
+  onPageChange,
+  maxVisibleNeighbors = 2,
+}) {
+  const pages = useMemo(
+    () => getVisiblePages(currentPage, totalPages, maxVisibleNeighbors),
+    [currentPage, totalPages, maxVisibleNeighbors]
+  );
 
   return (
     <div className="flex items-center justify-center space-x-2 mt-4">
@@ -47,7 +58,6 @@ const Pagination = ({ currentPage, totalPages, onPageChange }) => {
         disabled={currentPage === 1}
         onClick={() => {
           onPageChange(currentPage - 1);
-          window.scrollTo(0, 0);
         }}
       >
         السابق
@@ -56,20 +66,19 @@ const Pagination = ({ currentPage, totalPages, onPageChange }) => {
       {/* Dynamic Page Numbers */}
       {pages.map((page, idx) =>
         page === "..." ? (
-          <span key={page} className="px-1 sm:px-2 lg:px-3 py-1 text-gray-500">
+          <span key={idx} className="px-1 sm:px-2 lg:px-3 py-1 text-gray-500">
             ...
           </span>
         ) : (
           <button
-            key={page}
+            key={idx}
             className={`px-1 sm:px-2 lg:px-3 py-1  text-[10px] sm:text-[14px] rounded ${
               page === currentPage
-                ? "bg-blue-500 text-white"
-                : "bg-gray-200 hover:bg-gray-300"
+                ? "bg-primary-main text-white"
+                : "bg-gray-200 hover:bg-gray-main"
             }`}
             onClick={() => {
               onPageChange(page);
-              page !== currentPage && window.scrollTo(0, 0);
             }}
           >
             {page}
@@ -85,13 +94,12 @@ const Pagination = ({ currentPage, totalPages, onPageChange }) => {
         disabled={currentPage === totalPages}
         onClick={() => {
           onPageChange(currentPage + 1);
-          window.scrollTo(0, 0);
         }}
       >
         التالي
       </button>
     </div>
   );
-};
+}
 
-export default Pagination;
+export default memo(Pagination);
