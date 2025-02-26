@@ -2,6 +2,7 @@ import HorizontalScrollableList from "src/components/lists/HorizontalScrollableL
 import VehiclesRecordGeneralSchema from "../components/VehiclesRecordGeneralSchema";
 import VehiclesRecordTable from "../components/VehiclesRecordTable";
 import VehiclesRecordToolBar from "../components/VehiclesRecordToolBar";
+import useCashingState from "src/hooks/useCashingState";
 
 const items = [
   "بنزين(23)",
@@ -21,6 +22,16 @@ const items = [
 ];
 
 function VehiclesRecordList() {
+  const [sortStatuses, setSortStatuses] = useCashingState(
+    "vehiclesRecordSortStatuses",
+    { id: "ASC" }
+  );
+
+  const [selectedRows, setSelectedRows] = useCashingState(
+    "vehiclesRecordSelectedRows",
+    new Set()
+  );
+
   return (
     <div>
       <div className="flex justify-between items-center px-16 max-md:px-9 max-sm:px-5 py-3">
@@ -28,11 +39,16 @@ function VehiclesRecordList() {
           استعراض سجل الآليات
         </p>
         <HorizontalScrollableList items={items} className="mx-2" />
-        <VehiclesRecordToolBar />
+        <VehiclesRecordToolBar selectedRows={selectedRows} />
       </div>
       <div className="flex gap-2 bg-secondary-main">
         <VehiclesRecordGeneralSchema />
-        <VehiclesRecordTable />
+        <VehiclesRecordTable
+          selectedRows={selectedRows}
+          sortStatuses={sortStatuses}
+          setSelectedRows={setSelectedRows}
+          setSortStatuses={setSortStatuses}
+        />
       </div>
     </div>
   );

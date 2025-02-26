@@ -11,12 +11,6 @@ import Head from "./Head";
  */
 
 /**
- * @typedef selectedRows
- * @property {boolean} selectAll
- * @property {{[id:number]:row}} selectedRows
- */
-
-/**
  * @typedef sortStatus
  * @type {"ASC"|"DESC"}
  */
@@ -51,8 +45,8 @@ import Head from "./Head";
  * @property {boolean} props.secondaryLoading
  * @property {object} sortStatuses
  * @property {(name:string, sortStatus:sortStatus)=>void} onSortChange
- * @property {(selectedRows:selectedRows)=>void} onSelectRows
- * @property {selectedRows} selectedRows
+ * @property {(selectedRows:Set<number>)=>void} onSelectRows
+ * @property {Set<number>} selectedRows
  * @property {boolean} selectable
  */
 
@@ -104,37 +98,35 @@ function Table(props = { columns: [], rows: [] }) {
 
         if (name === "selectAll") {
           if (checked) {
-            onSelectRows({
-              selectAll: true,
-              selectedRows: Object.fromEntries(
-                rows.map((row) => [row.id, row])
-              ),
+            const newSelectedRows = new Set();
+
+            rows.forEach((row) => {
+              newSelectedRows.add(row.id);
             });
+
+            onSelectRows(newSelectedRows);
           } else {
-            onSelectRows({ selectAll: false, selectedRows: {} });
+            onSelectRows(new Set());
           }
 
           return;
         }
-        const newSelectedRows = {
-          ...(selectedRows.selectedRows || {}),
-        };
+        const newSelectedRows = new Set(selectedRows);
 
         if (checked) {
-          newSelectedRows[row.id] = row;
+          newSelectedRows.add(row.id);
         } else {
-          delete newSelectedRows[row.id];
+          newSelectedRows.delete(row.id);
         }
 
-        onSelectRows({
-          selectAll: Object.keys(newSelectedRows).length === rows.length,
-          selectedRows: newSelectedRows,
-        });
+        onSelectRows(newSelectedRows);
       },
     [rows, onSelectRows, selectedRows]
   );
 
   const cellLength = columns.length + (selectable ? 1 : 0);
+
+  const selectAll = selectedRows.size === rows.length;
 
   return (
     <Container {...containerProps}>
@@ -145,7 +137,7 @@ function Table(props = { columns: [], rows: [] }) {
           columns={columns}
           handleSelectRow={handleSelectRow}
           handleSortClick={handleSortClick}
-          selectAll={selectedRows.selectAll}
+          selectAll={selectAll}
           sortStatuses={sortStatuses}
           selectable={selectable}
         />
@@ -161,7 +153,7 @@ function Table(props = { columns: [], rows: [] }) {
           handleSelectRow={handleSelectRow}
           loading={loading}
           rows={rows}
-          selectedRows={selectedRows.selectedRows}
+          selectedRows={selectedRows}
           selectable={selectable}
         />
       </div>

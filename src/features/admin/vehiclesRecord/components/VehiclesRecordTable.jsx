@@ -18,11 +18,12 @@ const columns = [
   { name: "council", headerName: "المجلس", sort: true },
 ];
 
-function VehiclesRecordTable() {
-  const [sortStatuses, setSortStatuses] = useCashingState(
-    "vehiclesRecordSortStatuses",
-    { id: "ASC" }
-  );
+function VehiclesRecordTable({
+  setSortStatuses,
+  sortStatuses,
+  setSelectedRows,
+  selectedRows,
+}) {
   const [currentPage, setCurrentPage] = useCashingState(
     "vehiclesRecordCurrentPage",
     1
@@ -36,7 +37,6 @@ function VehiclesRecordTable() {
     },
     [setSortStatuses]
   );
-  const [selectedRows, setSelectedRows] = useState({});
 
   return (
     <div className="w-full ml-2 pb-9">

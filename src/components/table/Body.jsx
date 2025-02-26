@@ -16,46 +16,53 @@ function Body({
 }) {
   const [rowMouseDown, setRowMouseDown] = useState(false);
 
+  const changeLikeCheckBox = useCallback(
+    (row) => {
+      handleSelectRow(row)({
+        target: {
+          checked: !selectedRows.has(row.id),
+        },
+      });
+    },
+    [selectedRows, handleSelectRow]
+  );
+
   const handleMouseEnter = useCallback(
     (row) => () => {
       if (rowMouseDown) {
-        handleSelectRow(row)({
-          target: {
-            checked: selectedRows?.[row.id] ? false : true,
-          },
-        });
+        changeLikeCheckBox(row);
       }
     },
-    [rowMouseDown, handleSelectRow, selectedRows]
+    [rowMouseDown, changeLikeCheckBox]
   );
 
   const handleMouseDown = useCallback(
     (row) => () => {
-      handleSelectRow(row)({
-        target: {
-          checked: selectedRows?.[row.id] ? false : true,
-        },
-      });
+      changeLikeCheckBox(row);
+
       setRowMouseDown(true);
     },
-    [handleSelectRow, selectedRows]
+    [changeLikeCheckBox]
   );
 
   const handleSelectArea = useCallback(
     (i) => {
-      const isCurrRowSelected = selectedRows?.[rows?.[i]?.id];
+      const currentRowId = rows?.[i]?.id;
+      const isCurrRowSelected = selectedRows.has(currentRowId);
 
       if (!isCurrRowSelected) return "";
 
-      const isPrevRowSelected = Boolean(selectedRows?.[rows?.[i - 1]?.id]);
+      const prevRowId = rows?.[i - 1]?.id;
+      const isPrevRowSelected = selectedRows.has(prevRowId);
 
-      const isNextRowSelected = Boolean(selectedRows?.[rows?.[i + 1]?.id]);
+      const nextRowId = rows?.[i + 1]?.id;
+      const isNextRowSelected = selectedRows.has(nextRowId);
 
-      let style = `border-r-[3px] border-l-[3px] border-solid border-primary-main`;
+      let style = `border-r-[3px] border-l-[3px] border-solid border-primary-main `;
 
       return (
         style +
-        ` ${!isPrevRowSelected ? "border-t-[3px]" : ""} ${
+        `${!isPrevRowSelected ? "border-t-[3px]" : ""} ${
           !isNextRowSelected ? "border-b-[3px]" : ""
         } `
       );
@@ -93,7 +100,7 @@ function Body({
         </div>
       ) : (
         rows.map((row, i) => {
-          const selectedRow = selectedRows?.[row.id];
+          const selectedRow = selectedRows.has(row.id);
 
           return (
             <Row
@@ -114,7 +121,7 @@ function Body({
                 >
                   <input
                     type="checkbox"
-                    checked={Boolean(selectedRow)}
+                    checked={selectedRow}
                     className="w-5 h-5"
                     onChange={handleCheckBoxChange(row)}
                   />
