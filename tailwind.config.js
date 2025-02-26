@@ -3,6 +3,9 @@ module.exports = {
   content: ["./src/**/*.{js,jsx,ts,tsx}"],
   theme: {
     extend: {
+      boxShadow: {
+        navbarlink: "-10px 0px 20px 0px rgba(0,0,0,0.12)",
+      },
       colors: {
         gray: { main: "#C7C7C7" },
         primary: {

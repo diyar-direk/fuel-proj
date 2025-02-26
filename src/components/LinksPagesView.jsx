@@ -30,15 +30,11 @@ function LinksPageView({ links, className = "", ...props }) {
             key={label}
             className={`h-full flex justify-end pr-20 max-sm:pr-14 -mr-[50px] pl-12 max-sm:pl-7 items-center duration-150 
                 ${disabled ? "pointer-events-none" : ""} 
-                ${activeTab ? "text-white" : "text-black"} ${
+                ${activeTab ? "text-white" : "text-black "} ${
               activeTab
                 ? "bg-primary-main hover:bg-primary-dark"
                 : "bg-secondary-main hover:bg-primary-light"
-            } rounded-l-full text-2xl max-sm:text-xl ${className} ${
-              length - 1 === i
-                ? "shadow-[-15px_4px_50px_0px_rgba(0,0,0,0.26)]"
-                : ""
-            }`}
+            } rounded-l-full text-2xl max-sm:text-xl ${className} shadow-navbarlink `}
             style={{
               zIndex: (length - i) * 1,
               ...style,
