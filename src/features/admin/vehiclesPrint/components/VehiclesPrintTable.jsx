@@ -63,14 +63,14 @@ const columns = [
   },
 ];
 
-function VehiclesRecordTable({
+function VehiclesPrintTable({
   setSortStatuses,
   sortStatuses,
   setSelectedRows,
   selectedRows,
 }) {
   const [currentPage, setCurrentPage] = useCashingState(
-    "vehiclesRecordCurrentPage",
+    "vehiclesPrintCurrentPage",
     1
   );
 
@@ -102,7 +102,7 @@ function VehiclesRecordTable({
   );
 }
 
-export default memo(VehiclesRecordTable);
+export default memo(VehiclesPrintTable);
 
 export const rows = Array.from({ length: 10 }, (_, k) => ({
   id: k + 1,
