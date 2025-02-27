@@ -28,13 +28,13 @@ function LinksPageView({ links, className = "", ...props }) {
         return (
           <Link
             key={label}
-            className={`h-full flex justify-end pr-20 max-sm:pr-14 -mr-[50px] pl-12 max-sm:pl-7 items-center duration-150 
+            className={`h-full flex justify-end rtl:pr-20 ltr:pl-20 rtl:max-sm:pr-14 ltr:max-sm:pl-14 rtl:-mr-[50px] ltr:-ml-[50px] rtl:pl-12 ltr:pr-12 max-sm:pl-7 ltr:max-sm:pr-12 items-center duration-150 
                 ${disabled ? "pointer-events-none" : ""} 
                 ${activeTab ? "text-white" : "text-black "} ${
               activeTab
                 ? "bg-primary-main hover:bg-primary-dark"
                 : "bg-secondary-main hover:bg-primary-light"
-            } rounded-l-full text-2xl max-sm:text-xl ${className} shadow-navbarlink `}
+            } rtl:rounded-l-full ltr:rounded-r-full text-2xl max-sm:text-xl ${className} rtl:shadow-navbarlink-rtl ltr:shadow-navbarlink-ltr`}
             style={{
               zIndex: (length - i) * 1,
               ...style,

@@ -4,7 +4,8 @@ module.exports = {
   theme: {
     extend: {
       boxShadow: {
-        navbarlink: "-10px 0px 20px 0px rgba(0,0,0,0.12)",
+        "navbarlink-rtl": "-10px 0px 20px 0px rgba(0,0,0,0.12)",
+        "navbarlink-ltr": "10px 0px 20px 0px rgba(0,0,0,0.12)",
       },
       colors: {
         gray: { main: "#C7C7C7" },

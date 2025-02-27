@@ -4,7 +4,7 @@ import { ReactComponent as HomeIcon } from "src/assets/icons/home.svg";
 
 const title = (selected) => (
   <div className="flex items-center group ">
-    <div className="flex justify-center items-center max-md:w-6 max-md:h-3 max-md:mr-[5px] mr-2  max-md:mb-1">
+    <div className="flex justify-center items-center max-md:w-6 max-md:h-3 rtl:max-md:mr-[5px] rtl:max-md:ml-[5px] rtl:mr-2 ltr:ml-2 max-md:mb-1">
       <HomeIcon className="group-hover:fill-primary-dark" />
     </div>
     <p className="text-primary-main group-hover:text-primary-dark font-semibold text-base max-md:text-sm">

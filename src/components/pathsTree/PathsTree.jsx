@@ -101,9 +101,9 @@ function PathsTree({
         {!open && childrenLength ? <div className="text-end">....</div> : <></>}
       </span>
       <div
-        className={`mr-6 max-md:mr-4 relative top-2 ${
+        className={`rtl:mr-6 rtl:max-md:mr-4 ltr:ml-6 ltr:max-md:ml-4 relative top-2 ${
           open && !lastChildHasChildren
-            ? "border-r-2 border-primary-main rounded-br-xl"
+            ? "rtl:border-r-2 ltr:border-l-2 border-primary-main rtl:rounded-br-xl ltr:rounded-bl-xl"
             : ""
         } ${borderStyle}`}
       >
@@ -112,7 +112,7 @@ function PathsTree({
             <div
               className={`flex gap-0.5 ${
                 lastChildHasChildren && isBeforeLastIndex(i, childrenLength)
-                  ? "border-r-2 border-primary-main -mr-[1px]"
+                  ? "rtl:border-r-2 ltr:border-l-2 border-primary-main rtl:-mr-[1px] ltr:-ml-[1px]"
                   : ""
               } ${borderStyle}`}
               key={i}
