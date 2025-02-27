@@ -137,10 +137,7 @@ function Body({
     [handleSelectRow]
   );
 
-  const classNameMemo = useMemo(
-    () => twMerge(`relative`, className),
-    [className]
-  );
+  const classNameMemo = useMemo(() => twMerge(``, className), [className]);
   return (
     <tbody {...props} className={classNameMemo}>
       {!loading && secondaryLoading ? (

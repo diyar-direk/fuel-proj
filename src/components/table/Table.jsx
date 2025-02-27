@@ -158,7 +158,7 @@ function Table(props = { columns: [], rows: [] }) {
   return (
     <Container {...containerProps}>
       <div className="overflow-x-auto w-full max-w-full">
-        <table className="w-full min-w-max table-auto border-collapse">
+        <table className="w-full min-w-max table-auto border-collapse relative">
           <Head
             columns={columns}
             handleSelectRow={handleSelectRow}
