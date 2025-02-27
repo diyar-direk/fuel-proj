@@ -1,5 +1,6 @@
 import { memo, useMemo } from "react";
 import { twMerge } from "tailwind-merge";
+import { allowedTitles } from "./BodyCell";
 
 /**
  * @typedef utils
@@ -8,7 +9,7 @@ import { twMerge } from "tailwind-merge";
 
 /**
  * @typedef headerCellProps
- * @type {React.HTMLAttributes<HTMLDivElement> & utils}
+ * @type {React.ThHTMLAttributes<HTMLTableCellElement> & utils}
  */
 
 /**
@@ -23,8 +24,14 @@ function HeaderCell({ className = "", children, ...props }) {
       ),
     [className]
   );
+
   return (
-    <th className={classNameMemo} {...props} align="center">
+    <th
+      className={classNameMemo}
+      align="center"
+      title={allowedTitles.includes(typeof children) ? children : ""}
+      {...props}
+    >
       {children}
     </th>
   );

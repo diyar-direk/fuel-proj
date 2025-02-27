@@ -1,21 +1,66 @@
 import { memo, useCallback } from "react";
 import Table from "../../../../components/table/Table";
 import useCashingState from "../../../../hooks/useCashingState";
-
+/**
+ * @type {import("src/components/table/Table").column[]}
+ */
 const columns = [
-  { name: "id", headerName: "رقم الآلية", sort: true },
+  {
+    name: "id",
+    headerName: "رقم الآلية",
+    sort: true,
+  },
   { name: "owner", headerName: "المالك", sort: true },
-  { name: "plateNumber", headerName: "رقم اللوحة", sort: true },
-  { name: "chassisNumber", headerName: "رقم الهيكل", sort: true },
+  {
+    name: "plateNumber",
+    headerName: "رقم اللوحة",
+    sort: true,
+  },
+  {
+    name: "chassisNumber",
+    headerName: "رقم الهيكل",
+    sort: true,
+    className: "max-md:hidden",
+  },
   { name: "model", headerName: "المودل", sort: true },
-  { name: "color", headerName: "اللون", sort: true },
-  { name: "type", headerName: "النوعsssssssssssss", sort: true },
+  {
+    name: "color",
+    headerName: "اللون",
+    sort: true,
+    className: "max-md:hidden",
+  },
+  {
+    name: "type",
+    headerName: "النوع",
+    sort: true,
+    className: "max-2xl:hidden",
+  },
   { name: "document", headerName: "الوثيقة", sort: true },
-  { name: "documentNumber", headerName: "رقم الوثيقة", sort: true },
-  { name: "source", headerName: "المصدر", sort: true },
+  {
+    name: "documentNumber",
+    headerName: "رقم الوثيقة",
+    sort: true,
+    className: "max-md:hidden",
+  },
+  {
+    name: "source",
+    headerName: "المصدر",
+    sort: true,
+    className: "max-md:hidden",
+  },
   { name: "address", headerName: "العنوان", sort: true },
-  { name: "notes", headerName: "ملاحظات", sort: true },
-  { name: "council", headerName: "المجلس", sort: true },
+  {
+    name: "notes",
+    headerName: "ملاحظات",
+    sort: true,
+    className: "max-xl:hidden",
+  },
+  {
+    name: "council",
+    headerName: "المجلس",
+    sort: true,
+    className: "max-md:hidden",
+  },
 ];
 
 function VehiclesRecordTable({
@@ -51,6 +96,7 @@ function VehiclesRecordTable({
         onSelectRows={setSelectedRows}
         selectedRows={selectedRows}
         selectable
+        headerCheckboxCellProps={{ className: "max-md:w-14 max-sm:w-11" }}
       />
     </div>
   );

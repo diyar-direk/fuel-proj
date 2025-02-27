@@ -1,19 +1,62 @@
-import { memo, useCallback, useEffect, useState } from "react";
+import { memo, useCallback, useEffect, useMemo, useState } from "react";
 import Loading from "../skeleton/Loading";
 import Row from "./Row";
 import BodyCell from "./BodyCell";
 import LinearLoading from "../skeleton/LinearLoading";
+import { twMerge } from "tailwind-merge";
+/**
+ * @typedef tableProps
+ * @type {import("./Table").tableProps}
+ */
 
+/**
+ * @typedef headerCellProps
+ * @type {import('./HeaderCell').headerCellProps}
+ */
+
+/**
+ * @typedef bodyCellProps
+ * @type {import("./BodyCell").bodyCellProps}
+ */
+
+/**
+ * @typedef utils
+ * @property {boolean} loading
+ * @property {boolean} secondaryLoading
+ * @property {any[]} rows
+ * @property {tableProps['columns']} columns
+ * @property {import("./Row").rowProps} bodyRowProps
+ * @property {boolean} selectable
+ * @property {tableProps['selectedRows']} selectedRows
+ * @property {(row:any)=>(e:React.ChangeEvent<HTMLInputElement>)=>void} handleSelectRow
+ * @property {import("./BodyCell").bodyCellsProps} bodyCellsProps
+ * @property {import("./BodyCell").bodyCheckboxCellProps} bodyCheckboxCellProps
+ * @property {headerCellProps|bodyCellProps} cellsProps
+ * @property {headerCellProps|bodyCellProps} checkboxCellProps
+ */
+
+/**
+ * @typedef bodyProps
+ * @type {React.HTMLAttributes<HTMLTableSectionElement> & utils}
+ */
+
+/**
+ * @param {bodyProps} props
+ */
 function Body({
   loading,
   rows,
   columns,
-  cellLength,
-  bodyRowProps,
+  bodyRowProps = { className: "" },
   handleSelectRow,
   selectedRows,
   selectable,
   secondaryLoading,
+  className = "",
+  bodyCellsProps = { className: "" },
+  bodyCheckboxCellProps = { className: "" },
+  cellsProps = { className: "" },
+  checkboxCellProps = { className: "" },
   ...props
 }) {
   const [rowMouseDown, setRowMouseDown] = useState(false);
@@ -94,8 +137,12 @@ function Body({
     [handleSelectRow]
   );
 
+  const classNameMemo = useMemo(
+    () => twMerge(`relative`, className),
+    [className]
+  );
   return (
-    <tbody {...props} className="relative">
+    <tbody {...props} className={classNameMemo}>
       {!loading && secondaryLoading ? (
         <tr>
           <td>
@@ -125,9 +172,9 @@ function Body({
             <Row
               {...bodyRowProps}
               key={row.id}
-              cellLength={cellLength}
               className={
-                ((i & 1) === 1 ? "bg-primary-light " : "bg-secondary-main") +
+                ((i & 1) === 1 ? "bg-primary-light" : "bg-secondary-main") +
+                " " +
                 bodyRowProps.className +
                 "  " +
                 handleSelectArea(i)
@@ -135,8 +182,12 @@ function Body({
             >
               {selectable && (
                 <BodyCell
+                  {...bodyCellsProps}
+                  {...checkboxCellProps}
+                  {...bodyCheckboxCellProps}
                   onMouseEnter={handleMouseEnter(row)}
                   onMouseDown={handleMouseDown(row)}
+                  className={`${bodyCellsProps.className} ${checkboxCellProps.className} ${bodyCheckboxCellProps.className} `}
                 >
                   <input
                     type="checkbox"
@@ -146,14 +197,25 @@ function Body({
                   />
                 </BodyCell>
               )}
-              {columns.map((column) => (
-                <BodyCell
-                  key={column.name}
-                  className={column.className + " select-text"}
-                >
-                  {column.getCell ? column.getCell(row) : row[column.name]}
-                </BodyCell>
-              ))}
+              {columns.map(
+                ({
+                  bodyCellProps = { className: "" },
+                  props = { className: "" },
+                  className = "",
+                  ...column
+                }) => (
+                  <BodyCell
+                    key={column.name}
+                    {...cellsProps}
+                    {...props}
+                    {...bodyCellsProps}
+                    {...bodyCellProps}
+                    className={`${className} ${cellsProps.className} ${props.className} ${bodyCellsProps.className} ${bodyCellProps.className}`}
+                  >
+                    {column.getCell ? column.getCell(row) : row[column.name]}
+                  </BodyCell>
+                )
+              )}
             </Row>
           );
         })

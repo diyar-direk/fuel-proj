@@ -1,6 +1,6 @@
 import { memo, useMemo } from "react";
 import { twMerge } from "tailwind-merge";
-
+export const allowedTitles = ["string", "boolean", "number"];
 /**
  * @typedef utils
  * @property
@@ -8,7 +8,7 @@ import { twMerge } from "tailwind-merge";
 
 /**
  * @typedef bodyCellProps
- * @type {React.HTMLAttributes<HTMLDivElement> & utils}
+ * @type {React.TdHTMLAttributes<HTMLTableCellElement> & utils}
  */
 
 /**
@@ -24,7 +24,12 @@ function BodyCell({ className = "", children, ...props }) {
     [className]
   );
   return (
-    <td className={classNameMemo} {...props} align="center">
+    <td
+      className={classNameMemo}
+      align="center"
+      title={allowedTitles.includes(typeof children) ? children : ""}
+      {...props}
+    >
       {children}
     </td>
   );

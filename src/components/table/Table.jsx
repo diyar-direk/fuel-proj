@@ -20,34 +20,54 @@ import Head from "./Head";
  */
 
 /**
+ * @typedef headerCellProps
+ * @type {import('./HeaderCell').headerCellProps}
+ */
+
+/**
+ * @typedef bodyCellProps
+ * @type {import("./BodyCell").bodyCellProps}
+ */
+
+/**
  * @typedef column
  * @type {object}
- * @property {string} name
+ * @property {string} name - must be unique
  * @property {string} headerName
- * @property {string} headerClassName
  * @property {getCell} getCell
- * @property {string} className
+ * @property {string} className - (header and body) cells className
  * @property {type} type
  * @property {boolean} sort
+ * @property {headerCellProps} headerCellProps - header cell props
+ * @property {bodyCellProps} bodyCellProps - body cell props
+ * @property {bodyCellProps|headerCellProps} props - (header and body) cells props
  */
 /**
  * @typedef utils
- * @property {column[]} props.columns
- * @property {[]} props.rows
- * @property {number} props.currentPage
- * @property {number} props.totalPages
- * @property {function} props.onPageChange
- * @property {React.HTMLAttributes<HTMLDivElement>} props.containerProps
- * @property {React.HTMLAttributes<HTMLDivElement>} props.headerProps
- * @property {React.HTMLAttributes<HTMLDivElement>} props.bodyProps
- * @property {boolean} props.loading
- * @property {boolean} props.secondaryLoading
+ * @property {column[]} columns
+ * @property {[]} rows
+ * @property {number} currentPage
+ * @property {number} totalPages
+ * @property {function} onPageChange
+ * @property {React.HTMLAttributes<HTMLDivElement>} containerProps
+ * @property {React.HTMLAttributes<HTMLTableSectionElement>} headProps
+ * @property {React.HTMLAttributes<HTMLTableSectionElement>} bodyProps
+ * @property {boolean} loading
+ * @property {boolean} secondaryLoading
  * @property {object} sortStatuses
  * @property {(name:string, sortStatus:sortStatus)=>void} onSortChange
  * @property {(selectedRows:Set<number>)=>void} onSelectRows
  * @property {Set<number>} selectedRows
  * @property {boolean} selectable
  * @property {number} maxVisibleNeighbors - Number of neighbors to show on each side of the current page (the default: 2)
+ * @property {import("./Row").rowProps} bodyRowProps
+ * @property {import("./Row").rowProps} headRowProps
+ * @property {headerCellProps} headerCellsProps - all header cells props
+ * @property {bodyCellProps} bodyCellsProps - all body cells props
+ * @property {headerCellProps} headerCheckboxCellProps
+ * @property {bodyCellProps} bodyCheckboxCellProps
+ * @property {headerCellProps|bodyCellProps} checkboxCellProps - all (body and header) checkbox cells props
+ * @property {headerCellProps|bodyCellProps} cellsProps - all (body and header) cells props
  */
 
 /**
@@ -66,7 +86,7 @@ function Table(props = { columns: [], rows: [] }) {
     onPageChange,
     totalPages,
     containerProps = { className: "" },
-    headerProps = { className: "" },
+    headProps = { className: "" },
     bodyProps = { className: "" },
     loading,
     secondaryLoading,
@@ -76,6 +96,14 @@ function Table(props = { columns: [], rows: [] }) {
     selectedRows,
     selectable,
     maxVisibleNeighbors = 2,
+    bodyRowProps,
+    headRowProps,
+    headerCellsProps,
+    bodyCellsProps,
+    headerCheckboxCellProps,
+    bodyCheckboxCellProps,
+    cellsProps,
+    checkboxCellProps,
   } = props;
 
   const handleSortClick = useCallback(
@@ -125,36 +153,40 @@ function Table(props = { columns: [], rows: [] }) {
     [rows, onSelectRows, selectedRows]
   );
 
-  const cellLength = columns.length + (selectable ? 1 : 0);
-
   const selectAll = selectedRows.size === rows.length;
 
   return (
     <Container {...containerProps}>
       <div className="overflow-x-auto w-full max-w-full">
         <table className="w-full min-w-max table-auto border-collapse">
-          <thead>
-            <Head
-              {...headerProps}
-              cellLength={cellLength}
-              columns={columns}
-              handleSelectRow={handleSelectRow}
-              handleSortClick={handleSortClick}
-              selectAll={selectAll}
-              sortStatuses={sortStatuses}
-              selectable={selectable}
-            />
-          </thead>
+          <Head
+            columns={columns}
+            handleSelectRow={handleSelectRow}
+            handleSortClick={handleSortClick}
+            selectAll={selectAll}
+            sortStatuses={sortStatuses}
+            selectable={selectable}
+            headRowProps={headRowProps}
+            headerCellsProps={headerCellsProps}
+            headerCheckboxCellProps={headerCheckboxCellProps}
+            cellsProps={cellsProps}
+            checkboxCellProps={checkboxCellProps}
+            {...headProps}
+          />
           <Body
             secondaryLoading={secondaryLoading}
             columns={columns}
-            bodyRowProps={bodyProps}
-            cellLength={cellLength}
+            bodyRowProps={bodyRowProps}
             handleSelectRow={handleSelectRow}
             loading={loading}
             rows={rows}
             selectedRows={selectedRows}
             selectable={selectable}
+            bodyCellsProps={bodyCellsProps}
+            bodyCheckboxCellProps={bodyCheckboxCellProps}
+            cellsProps={cellsProps}
+            checkboxCellProps={checkboxCellProps}
+            {...bodyProps}
           />
         </table>
       </div>
