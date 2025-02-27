@@ -19,7 +19,7 @@ function LinksPageView({ links, className = "", ...props }) {
 
   return (
     <div
-      className={`h-28 max-md:h-20 flex overflow-auto bg-secondary-main ${className}`}
+      className={`h-28 max-lg:h-24 max-md:h-20 flex overflow-auto bg-secondary-main ${className}`}
       {...props}
     >
       {links.map(({ label, className = "", style, disabled, ...link }, i) => {

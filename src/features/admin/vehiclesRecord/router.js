@@ -1,31 +1,19 @@
-import { lazy, Suspense } from "react";
-import Loading from "../../../components/skeleton/Loading";
+import { lazy } from "react";
 import { vehiclesRecord } from "src/constants/SectionsInfo";
+import PageFallback from "src/components/PageFallback";
 
 const VehiclesRecordList = lazy(() => import("./pages/VehiclesRecordList"));
 
-function useVehiclesRecord() {
-  /**
-   * @type {import("react-router-dom").RouteObject[]}
-   */
-  const router = [
-    {
-      path: vehiclesRecord.to,
-      element: (
-        <Suspense
-          fallback={
-            <div className="flex justify-center items-center h-[65vh]">
-              <Loading />
-            </div>
-          }
-        >
-          <VehiclesRecordList />
-        </Suspense>
-      ),
-    },
-  ];
-
-  return router;
-}
-
-export default useVehiclesRecord;
+/**
+ * @type {import("react-router-dom").RouteObject[]}
+ */
+export const vehiclesRecordRouter = [
+  {
+    path: vehiclesRecord.to,
+    element: (
+      <PageFallback>
+        <VehiclesRecordList />
+      </PageFallback>
+    ),
+  },
+];

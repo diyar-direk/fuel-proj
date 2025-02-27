@@ -14,23 +14,23 @@ const title = (selected) => (
 );
 const children = [
   {
-    title: "كوباني",
-    value: "kobani",
+    title: "مديرية 1",
+    value: "directorate",
     children: [
-      { title: "مجلس 1", value: "council1" },
-      { title: "مجلس 2", value: "council2" },
+      { title: "لجنة 1", value: "committee1" },
+      { title: "لجنة 2", value: "committee2" },
       {
-        title: "مجلس 3",
-        value: "council3",
+        title: "لجنة 3",
+        value: "committee3",
       },
       {
-        title: "مجلس 4",
-        value: "council4",
+        title: "لجنة 4",
+        value: "committee4",
       },
     ],
   },
 ];
-function VehiclesRecordGeneralSchema() {
+function VehiclesPrintGeneralSchema() {
   const [value, setValue] = useState("");
 
   return (
@@ -47,4 +47,4 @@ function VehiclesRecordGeneralSchema() {
   );
 }
 
-export default memo(VehiclesRecordGeneralSchema);
+export default memo(VehiclesPrintGeneralSchema);

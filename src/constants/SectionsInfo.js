@@ -11,6 +11,10 @@ const sectionsInfo = {
         label: "آليات",
         to: "/vehicles-record",
       },
+      vehiclesPrint: {
+        label: "الطباعة",
+        to: "/vehicles-print",
+      },
       staions: { label: "محطات" },
     },
   },
@@ -24,6 +28,6 @@ const sectionsInfo = {
 
 export const { agriculture, vehicle } = sectionsInfo;
 
-export const { vehiclesRecord } = vehicle.pages;
+export const { vehiclesRecord, vehiclesPrint } = vehicle.pages;
 
 export default sectionsInfo;

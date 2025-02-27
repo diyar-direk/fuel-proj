@@ -1,17 +1,19 @@
-import Login from "./pages/Login";
+import { lazy } from "react";
+import PageFallback from "src/components/PageFallback";
+const Login = lazy(() => import("./pages/Login"));
 
-function useLoginRouter() {
-  /**
-   * @type {import("react-router-dom").RouteObject[]}
-   */
-  const router = [
-    {
-      path: "login",
-      element: <Login />,
-    },
-  ];
+/**
+ * @type {import("react-router-dom").RouteObject[]}
+ */
+const loginRouter = [
+  {
+    path: "login",
+    element: (
+      <PageFallback height="100vh">
+        <Login />
+      </PageFallback>
+    ),
+  },
+];
 
-  return router;
-}
-
-export default useLoginRouter;
+export default loginRouter;

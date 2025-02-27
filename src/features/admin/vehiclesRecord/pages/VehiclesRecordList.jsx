@@ -3,6 +3,7 @@ import VehiclesRecordGeneralSchema from "../components/VehiclesRecordGeneralSche
 import VehiclesRecordTable from "../components/VehiclesRecordTable";
 import VehiclesRecordToolBar from "../components/VehiclesRecordToolBar";
 import useCashingState from "src/hooks/useCashingState";
+import { memo } from "react";
 
 const items = [
   "بنزين(23)",
@@ -34,8 +35,8 @@ function VehiclesRecordList() {
 
   return (
     <div>
-      <div className="flex justify-between  px-16 py-3 max-xl:px-4 max-lg:flex-col">
-        <div className="flex lg:justify-center items-center ">
+      <div className="flex justify-between  px-16 py-3 max-xl:px-4 max-lg:flex-col gap-2">
+        <div className="flex lg:justify-center items-center">
           <p className="text-primary-main text-2xl max-md:text-xl max-sm:text-base font-medium min-w-max">
             استعراض سجل الآليات
           </p>
@@ -59,4 +60,4 @@ function VehiclesRecordList() {
   );
 }
 
-export default VehiclesRecordList;
+export default memo(VehiclesRecordList);

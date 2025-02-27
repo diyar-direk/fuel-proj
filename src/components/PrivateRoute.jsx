@@ -9,7 +9,7 @@ function PrivateRoute({ children }) {
     return children;
   }
 
-  return <Navigate to="login" replace />;
+  return <Navigate to="/login" replace />;
 }
 
 export default memo(PrivateRoute);
