@@ -43,7 +43,7 @@ function Tooltip({
       {children}
       {mouseIn && (
         <div
-          className={`absolute p-2 text-sm bg-dark-light text-white rounded font-medium ${placementStyle[placement]}`}
+          className={`absolute p-2 text-sm bg-dark-light text-white rounded font-medium z-50 ${placementStyle[placement]}`}
         >
           {title}
         </div>
