@@ -153,11 +153,15 @@ function Body({
           </td>
         </tr>
       )}
-      {loading ? (
+      {loading || rows.length === 0 ? (
         <tr>
           <td className="h-96">
-            <div className="flex justify-center items-center absolute top-1/2 rtl:right-1/2 left-1/2 -translate-x-1/2 translate-y-1/2 w-fit">
-              <Loading />
+            <div className="flex justify-center items-center absolute top-1/2 rtl:right-1/2 ltr:left-1/2 ltr:-translate-x-1/2 ltr:-translate-y-1/2 rtl:translate-x-1/2 rtl:translate-y-1/2 w-fit">
+              {loading ? (
+                <Loading />
+              ) : (
+                <p className="min-w-max text-xl">لا يوجد بيانات...</p>
+              )}
             </div>
           </td>
         </tr>

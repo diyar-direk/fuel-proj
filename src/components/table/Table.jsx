@@ -153,7 +153,7 @@ function Table(props = { columns: [], rows: [] }) {
     [rows, onSelectRows, selectedRows]
   );
 
-  const selectAll = selectedRows.size === rows.length;
+  const selectAll = rows.length ? selectedRows.size === rows.length : false;
 
   return (
     <Container {...containerProps}>
