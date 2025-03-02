@@ -1,21 +1,22 @@
+import { LocalStorageHelper } from "./LocalStorageHelper";
+
+const keyStore = "accessToken";
 export class AuthHelper {
   static getAccesssToken() {
     try {
-      const tokens = JSON.parse(localStorage.getItem("authTokens"));
+      const accessToken = LocalStorageHelper.getItem(keyStore);
 
-      return tokens?.access;
+      return accessToken;
     } catch (err) {
       return null;
     }
   }
 
-  static getRefreshToken() {
-    try {
-      const tokens = JSON.parse(localStorage.getItem("authTokens"));
+  static setAccessToken(token) {
+    LocalStorageHelper.setItem(keyStore, token);
+  }
 
-      return tokens?.refresh;
-    } catch (err) {
-      return null;
-    }
+  static removeAccessToken() {
+    LocalStorageHelper.removeItem("accessToken");
   }
 }

@@ -11,12 +11,12 @@ function Layout() {
 
   const links = useMemo(() => {
     const section = SectionsInfo[currentSection];
-    const SectionIcon = section.icon;
-    const pages = section.pages;
+    const SectionIcon = section?.icon;
+    const pages = section?.pages || {};
 
     return [
       {
-        label: <SectionIcon className="fill-primary-main" />,
+        label: SectionIcon && <SectionIcon className="fill-primary-main" />,
         disabled: true,
       },
       ...Object.values(pages).map(({ label, to }) => ({ label, to })),

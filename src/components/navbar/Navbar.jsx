@@ -3,7 +3,11 @@ import Button from "../buttons/Button";
 import ButtonGroup from "../buttons/ButtonGroup";
 import { ReactComponent as LogoIcon } from "src/assets/icons/logo.svg";
 import { ReactComponent as LogoutIcon } from "src/assets/icons/logout.svg";
-import { changeCurrentSection, currentSectionSelector } from "src/app/slice";
+import {
+  changeCurrentSection,
+  currentSectionSelector,
+  logout,
+} from "src/app/slice";
 import {
   agriculture,
   vehicle,
@@ -48,6 +52,10 @@ export default function Navbar() {
     [dispatch]
   );
 
+  const handleLogout = useCallback(() => {
+    dispatch(logout());
+  }, [dispatch]);
+
   return (
     <div className="bg-white">
       <div className="flex justify-between max-md:flex-col px-16 max-lg:p-3 items-center gap-2">
@@ -65,6 +73,7 @@ export default function Navbar() {
             variant="contained"
             className="w-max max-sm:w-full flex gap-x-2 px-7 justify-center items-center"
             style={{ borderRadius: "2rem" }}
+            onClick={handleLogout}
           >
             <LogoutIcon />
             تسجيل الخروج

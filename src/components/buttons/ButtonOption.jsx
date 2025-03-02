@@ -49,7 +49,7 @@ function ButtonOption({
       twMerge(
         `w-full flex gap-x-2 px-14 justify-center items-center transition-all `,
         `${buttonClassName} ${className} ${
-          active ? `z-[100] ${activeButtonClassName}` : `z-${20 + index * 10}`
+          active ? `z-[100] ${activeButtonClassName}` : `z-[${20 + index * 10}]`
         }  `
       ),
     [index, buttonClassName, className, active, activeButtonClassName]
@@ -63,7 +63,7 @@ function ButtonOption({
       style={{
         borderRadius: "2rem",
         [document.body.dir === "rtl" ? "marginRight" : "marginLeft"]: `-${
-          overlapSpacing * index
+          index !== 0 ? overlapSpacing : 0
         }px`,
         ...style,
       }}
