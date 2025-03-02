@@ -1,7 +1,7 @@
 export class LocalStorageHelper {
   /**
    * @typedef keys
-   * @type {'currentSection'}
+   * @type {'currentSection'|'accessToken'}
    */
 
   /**
@@ -29,5 +29,10 @@ export class LocalStorageHelper {
       return null;
     }
   }
-  static removeItem() {}
+  /**
+   * @param {keys} key
+   */
+  static removeItem(key) {
+    localStorage.removeItem(key);
+  }
 }
