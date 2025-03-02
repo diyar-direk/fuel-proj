@@ -4,6 +4,8 @@ import VehiclesRecordTable from "../components/VehiclesRecordTable";
 import VehiclesRecordToolBar from "../components/VehiclesRecordToolBar";
 import useCashingState from "src/hooks/useCashingState";
 import { memo } from "react";
+import { useInfiniteQuery } from "@tanstack/react-query";
+import { getVehiclesRecordApi } from "../api/api";
 
 const items = [
   "بنزين(23)",
@@ -23,6 +25,14 @@ const items = [
 ];
 
 function VehiclesRecordList() {
+  const [page, setPage] = useCashingState("vehiclesRecordPage", 1);
+
+  const vehcilesRecord = useInfiniteQuery({
+    queryKey: ["vehiclesRecord", page],
+    queryFn: () => getVehiclesRecordApi({ page }),
+    getNextPageParam: (data) => data,
+  });
+
   const [sortStatuses, setSortStatuses] = useCashingState(
     "vehiclesRecordSortStatuses",
     { id: "ASC" }
@@ -54,6 +64,11 @@ function VehiclesRecordList() {
           sortStatuses={sortStatuses}
           setSelectedRows={setSelectedRows}
           setSortStatuses={setSortStatuses}
+          page={page}
+          setPage={setPage}
+          vehcilesRecord={vehcilesRecord.data?.pages?.[0]}
+          loading={vehcilesRecord.isLoading}
+          secondaryLoading={vehcilesRecord.isFetching}
         />
       </div>
     </div>
