@@ -3,6 +3,8 @@ const Endpoints = {
   vehicles: "vehicles/",
   account: "account/",
   login: "login/",
+  station: "station/",
+  stations: "stations/",
 };
 
 export default Endpoints;

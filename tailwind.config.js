@@ -35,6 +35,7 @@ module.exports = {
         },
       },
       screens: {
+        "force-all": "0px",
         xxxs: "275px",
         xxs: "340px",
         xs: "440px",

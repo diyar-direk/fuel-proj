@@ -6,11 +6,7 @@ import { twMerge } from "tailwind-merge";
  */
 function Paper(props = { children: <></>, className: "" }) {
   const classNameMemo = useMemo(
-    () =>
-      twMerge(
-        "shadow-product-card-button bg-white rounded-[12px] ",
-        props.className
-      ),
+    () => twMerge("bg-white rounded-[12px] ", props.className),
     [props.className]
   );
 

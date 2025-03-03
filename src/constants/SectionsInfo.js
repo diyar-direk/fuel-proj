@@ -28,12 +28,14 @@ const sectionsInfo = {
   station: {
     icon: StationIcon,
     label: "محطات",
-    pages: { stationsRecord: { label: "المحطات" } },
+    pages: { stationsRecord: { label: "المحطات", to: "/stations-record" } },
   },
 };
 
-export const { agriculture, vehicle } = sectionsInfo;
+export const { agriculture, vehicle, station } = sectionsInfo;
 
 export const { vehiclesRecord, vehiclesPrint } = vehicle.pages;
+
+export const { stationsRecord } = station.pages;
 
 export default sectionsInfo;

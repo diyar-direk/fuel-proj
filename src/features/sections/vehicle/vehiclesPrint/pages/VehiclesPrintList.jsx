@@ -3,6 +3,7 @@ import VehiclesRecordTable from "../components/VehiclesPrintTable";
 import VehiclesRecordToolBar from "../components/VehiclesPrintToolBar";
 import useCashingState from "src/hooks/useCashingState";
 import { memo } from "react";
+import SubHeader from "src/components/SubHeader";
 
 function VehiclesPrintList() {
   const [sortStatuses, setSortStatuses] = useCashingState(
@@ -17,14 +18,12 @@ function VehiclesPrintList() {
 
   return (
     <div>
-      <div className="flex justify-between  px-16 py-3 max-xl:px-4 max-lg:flex-col gap-2">
+      <SubHeader>
         <div className="flex lg:justify-center items-center ">
-          <p className="text-primary-main text-2xl max-md:text-xl max-sm:text-base font-medium min-w-max">
-            استعراض سجل الآليات
-          </p>
+          <p className="page-title">سجل الآليات</p>
         </div>
         <VehiclesRecordToolBar selectedRows={selectedRows} />
-      </div>
+      </SubHeader>
       <div className="flex xs:gap-2 bg-secondary-main relative">
         <VehiclesRecordGeneralSchema />
         <VehiclesRecordTable

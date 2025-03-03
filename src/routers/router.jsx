@@ -4,6 +4,7 @@ import Layout from "src/components/layout/Layout";
 import { vehiclePrintRouter } from "src/features/sections/vehicle/vehiclesPrint/router";
 import { vehiclesRecordRouter } from "src/features/sections/vehicle/vehiclesRecord/router";
 import loginRouter from "src/features/login/router";
+import { stationsRecordRouter } from "src/features/sections/station/stationsRecord/router";
 
 function AppRouter() {
   const routers = createBrowserRouter([
@@ -17,6 +18,7 @@ function AppRouter() {
             { element: <h1>Home</h1>, index: true },
             ...vehiclesRecordRouter,
             ...vehiclePrintRouter,
+            ...stationsRecordRouter,
           ],
         },
         ...loginRouter,
