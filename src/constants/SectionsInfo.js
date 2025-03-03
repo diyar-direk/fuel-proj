@@ -1,10 +1,13 @@
 import { ReactComponent as VehicleIcon } from "src/assets/icons/vehicle.svg";
 import { ReactComponent as AgricultureIcon } from "src/assets/icons/agriculture.svg";
+import { ReactComponent as StationIcon } from "src/assets/icons/station.svg";
 
+/**
+ * @type {{[x:string]:{icon: React.FunctionComponent<React.SVGProps<SVGSVGElement> & {title?: string;}>, name: string, label: string, pages:{[x:string]:{label: string,to: string}}}}}
+ */
 const sectionsInfo = {
   vehicle: {
     icon: VehicleIcon,
-    name: "vehicle",
     label: "آليات",
     pages: {
       vehiclesRecord: {
@@ -15,14 +18,17 @@ const sectionsInfo = {
         label: "الطباعة",
         to: "/vehicles-print",
       },
-      staions: { label: "محطات" },
     },
   },
   agriculture: {
     icon: AgricultureIcon,
-    name: "agriculture",
     label: "زراعي",
-    pages: [],
+    pages: {},
+  },
+  station: {
+    icon: StationIcon,
+    label: "محطات",
+    pages: { stationsRecord: { label: "المحطات" } },
   },
 };
 

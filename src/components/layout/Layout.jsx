@@ -14,6 +14,8 @@ function Layout() {
     const SectionIcon = section?.icon;
     const pages = section?.pages || {};
 
+    console.log(section);
+
     return [
       {
         label: SectionIcon && <SectionIcon className="fill-primary-main" />,
