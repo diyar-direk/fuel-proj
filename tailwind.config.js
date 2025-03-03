@@ -16,6 +16,7 @@ module.exports = {
         },
         secondary: {
           main: "#F1F1F1",
+          secondary: "#C7C7C7",
         },
         danger: {
           main: "#B31329",
