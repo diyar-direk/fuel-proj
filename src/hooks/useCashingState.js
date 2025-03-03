@@ -10,6 +10,7 @@ export default function useCashingState(queryKey, defaultData) {
 
   const { data } = useQuery({
     queryKey: [queryKey],
+    queryFn: () => data,
     initialData: () =>
       typeof defaultData === "function" ? defaultData() : defaultData,
   });
