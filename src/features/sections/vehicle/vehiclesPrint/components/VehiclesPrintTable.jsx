@@ -1,7 +1,6 @@
 import { memo, useCallback } from "react";
-import Table from "../../../../components/table/Table";
-import { Link } from "react-router-dom";
-import Button from "src/components/buttons/Button";
+import Table from "src/components/table/Table";
+import useCashingState from "src/hooks/useCashingState";
 /**
  * @type {import("src/components/table/Table").column[]}
  */
@@ -11,14 +10,14 @@ const columns = [
     headerName: "رقم الآلية",
     sort: true,
   },
-  { name: "owner_name", headerName: "المالك", sort: true },
+  { name: "owner", headerName: "المالك", sort: true },
   {
-    name: "plate_number",
+    name: "plateNumber",
     headerName: "رقم اللوحة",
     sort: true,
   },
   {
-    name: "chassis_number",
+    name: "chassisNumber",
     headerName: "رقم الهيكل",
     sort: true,
     className: "max-md:hidden",
@@ -31,26 +30,14 @@ const columns = [
     className: "max-md:hidden",
   },
   {
-    name: "documentation_type",
-    headerName: "نوع الوثيقة",
+    name: "type",
+    headerName: "النوع",
     sort: true,
     className: "max-2xl:hidden",
   },
+  { name: "document", headerName: "الوثيقة", sort: true },
   {
-    name: "documentaions_image",
-    headerName: "الوثيقة",
-    sort: true,
-    getCell: (row) =>
-      row.documentaions_image && (
-        <Link to={row.documentaions_image} target="_blank">
-          <Button variant="contained" className="py-1">
-            عرض
-          </Button>
-        </Link>
-      ),
-  },
-  {
-    name: "documentation_ID",
+    name: "documentNumber",
     headerName: "رقم الوثيقة",
     sort: true,
     className: "max-md:hidden",
@@ -76,17 +63,17 @@ const columns = [
   },
 ];
 
-function VehiclesRecordTable({
+function VehiclesPrintTable({
   setSortStatuses,
   sortStatuses,
   setSelectedRows,
   selectedRows,
-  setPage,
-  page,
-  vehcilesRecord,
-  secondaryLoading,
-  loading,
 }) {
+  const [currentPage, setCurrentPage] = useCashingState(
+    "vehiclesPrintCurrentPage",
+    1
+  );
+
   const handleSortChange = useCallback(
     (name, sortStatus) => {
       setSortStatuses({
@@ -97,27 +84,25 @@ function VehiclesRecordTable({
   );
 
   return (
-    <div className="me-2 pb-9 w-5/6 max-md:w-3/5 h-[70vh]">
+    <div className="me-2 pb-9 w-5/6 max-md:w-3/5">
       <Table
         columns={columns}
-        rows={vehcilesRecord?.vehicles || []}
+        rows={rows}
         onSortChange={handleSortChange}
         sortStatuses={sortStatuses}
-        totalPages={vehcilesRecord?.count}
-        onPageChange={setPage}
-        currentPage={page}
+        totalPages={rows.length}
+        onPageChange={setCurrentPage}
+        currentPage={currentPage}
         onSelectRows={setSelectedRows}
         selectedRows={selectedRows}
         selectable
         headerCheckboxCellProps={{ className: "max-md:w-14 max-sm:w-11" }}
-        loading={loading}
-        secondaryLoading={secondaryLoading}
       />
     </div>
   );
 }
 
-export default memo(VehiclesRecordTable);
+export default memo(VehiclesPrintTable);
 
 export const rows = Array.from({ length: 10 }, (_, k) => ({
   id: k + 1,

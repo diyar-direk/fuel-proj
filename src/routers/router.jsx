@@ -1,8 +1,8 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Container from "src/components/container/Container";
 import Layout from "src/components/layout/Layout";
-import { vehiclePrintRouter } from "src/features/admin/vehiclesPrint/router";
-import { vehiclesRecordRouter } from "src/features/admin/vehiclesRecord/router";
+import { vehiclePrintRouter } from "src/features/sections/vehicle/vehiclesPrint/router";
+import { vehiclesRecordRouter } from "src/features/sections/vehicle/vehiclesRecord/router";
 import loginRouter from "src/features/login/router";
 
 function AppRouter() {
