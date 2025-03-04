@@ -7,12 +7,12 @@ import { ReactComponent as RemoveIcon } from "src/assets/icons/remove.svg";
 function StationsRecordViewToolbar() {
   return (
     <div className="flex items-center gap-3 max-md:gap-1">
-      <Tooltip title="Add">
+      <Tooltip title="أضافة">
         <IconButton>
           <AddIcon />
         </IconButton>
       </Tooltip>
-      <Tooltip title="Remove">
+      <Tooltip title="حذف">
         <IconButton>
           <RemoveIcon />
         </IconButton>

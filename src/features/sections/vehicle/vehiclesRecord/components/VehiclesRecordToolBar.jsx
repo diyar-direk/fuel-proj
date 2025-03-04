@@ -16,24 +16,24 @@ function VehiclesRecordToolBar({ selectedRows }) {
         // className="w-[25vw] "
         containerProps={{ className: "max-md:h-10" }}
       />
-      <Tooltip title="Filter">
+      <Tooltip title="فلترة">
         <IconButton>
           <FilterIcon />
         </IconButton>
       </Tooltip>
-      <Tooltip title="Print">
+      <Tooltip title="طباعة">
         <IconButton>
           <PrintIcon />
         </IconButton>
       </Tooltip>
 
-      <Tooltip title="Add">
+      <Tooltip title="أضافة">
         <IconButton>
           <AddIcon />
         </IconButton>
       </Tooltip>
 
-      <Tooltip title="Remove">
+      <Tooltip title="حذف">
         <IconButton>
           <RemoveIcon
             className={
