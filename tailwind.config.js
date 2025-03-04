@@ -34,6 +34,24 @@ module.exports = {
         info: {
           main: "#F2994A",
         },
+        vehicle: {
+          main: "#1376B3",
+        },
+        heating: {
+          main: "#FFC020",
+        },
+        industrial: {
+          main: "#7B7B7B",
+        },
+        agriculture: {
+          main: "#3DB858",
+        },
+        diwan: {
+          main: "#161341",
+        },
+        administration: {
+          main: "#1E1E1E",
+        },
       },
       screens: {
         "force-all": "0px",
