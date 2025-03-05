@@ -16,24 +16,24 @@ function VehiclesPrintToolBar({ selectedRows }) {
         // className="w-[25vw] "
         containerProps={{ className: "max-md:h-10" }}
       />
-      <Tooltip title="Filter">
+      <Tooltip title="فلترة">
         <IconButton>
           <FilterIcon />
         </IconButton>
       </Tooltip>
-      <Tooltip title="Print">
+      <Tooltip title="طباعة">
         <IconButton>
           <PrintIcon />
         </IconButton>
       </Tooltip>
 
-      <Tooltip title="Add">
+      <Tooltip title="استيراد">
         <IconButton>
           <ImportIcon />
         </IconButton>
       </Tooltip>
 
-      <Tooltip title="Remove">
+      <Tooltip title="تصدير">
         <IconButton>
           <ExportIcon
             className={

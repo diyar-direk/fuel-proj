@@ -1,6 +1,6 @@
 import { memo, useCallback } from "react";
-import Table from "../../../../components/table/Table";
-import useCashingState from "../../../../hooks/useCashingState";
+import Table from "src/components/table/Table";
+import useCashingState from "src/hooks/useCashingState";
 /**
  * @type {import("src/components/table/Table").column[]}
  */

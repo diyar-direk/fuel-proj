@@ -1,5 +1,5 @@
 import { memo, useCallback } from "react";
-import Table from "../../../../components/table/Table";
+import Table from "src/components/table/Table";
 import { Link } from "react-router-dom";
 import Button from "src/components/buttons/Button";
 /**
@@ -76,14 +76,14 @@ const columns = [
   },
 ];
 
-function VehiclesRecordTable({
+function StationsRecordTable({
   setSortStatuses,
   sortStatuses,
   setSelectedRows,
   selectedRows,
   setPage,
   page,
-  vehcilesRecord,
+  stationsRecord,
   secondaryLoading,
   loading,
 }) {
@@ -100,10 +100,10 @@ function VehiclesRecordTable({
     <div className="me-2 pb-9 w-5/6 max-md:w-3/5 h-[70vh]">
       <Table
         columns={columns}
-        rows={vehcilesRecord?.vehicles || []}
+        rows={stationsRecord?.vehicles || []}
         onSortChange={handleSortChange}
         sortStatuses={sortStatuses}
-        totalPages={vehcilesRecord?.count}
+        totalPages={stationsRecord?.count}
         onPageChange={setPage}
         currentPage={page}
         onSelectRows={setSelectedRows}
@@ -117,7 +117,7 @@ function VehiclesRecordTable({
   );
 }
 
-export default memo(VehiclesRecordTable);
+export default memo(StationsRecordTable);
 
 export const rows = Array.from({ length: 10 }, (_, k) => ({
   id: k + 1,

@@ -6,6 +6,7 @@ import useCashingState from "src/hooks/useCashingState";
 import { memo } from "react";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { getVehiclesRecordApi } from "../api/api";
+import SubHeader from "src/components/SubHeader";
 
 const items = [
   "بنزين(23)",
@@ -45,18 +46,16 @@ function VehiclesRecordList() {
 
   return (
     <div>
-      <div className="flex justify-between  px-16 py-3 max-xl:px-4 max-lg:flex-col gap-2">
+      <SubHeader>
         <div className="flex lg:justify-center items-center">
-          <p className="text-primary-main text-2xl max-md:text-xl max-sm:text-base font-medium min-w-max">
-            استعراض سجل الآليات
-          </p>
+          <p className="page-title">سجل الآليات</p>
           <HorizontalScrollableList
             items={items}
             className="mx-2 max-w-[46vw] max-2xl:max-w-[33vw]  max-lg:max-w-full "
           />
         </div>
         <VehiclesRecordToolBar selectedRows={selectedRows} />
-      </div>
+      </SubHeader>
       <div className="flex gap-2 bg-secondary-main">
         <VehiclesRecordGeneralSchema />
         <VehiclesRecordTable

@@ -69,3 +69,7 @@
   background-color: var(--text-gray-main, #4b5563);
   border-radius: 3px;
 }
+
+.page-title {
+  @apply text-primary-main text-2xl max-md:text-xl max-sm:text-base font-medium min-w-max;
+}
