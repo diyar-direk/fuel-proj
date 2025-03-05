@@ -1,54 +1,39 @@
 import { memo, useCallback } from "react";
-import Button from "src/components/buttons/Button";
+import Checkbox from "src/components/inputs/Checkbox";
 
 function StationsRecordViewFilter({ allocations, setAllocations }) {
   const handleAllocationsChange = useCallback(
     (e) => {
       const name = e.target.name;
-      setAllocations({ ...allocations, [name]: !allocations[name] });
+      const checked = e.target.checked;
+
+      setAllocations({ ...allocations, [name]: checked });
     },
     [allocations, setAllocations]
   );
 
   return (
     <div className="flex gap-3">
-      <ButtonFilter
-        onClick={handleAllocationsChange}
-        checked={allocations.vehicle}
+      <Checkbox
         name="vehicle"
-      >
-        آليات
-      </ButtonFilter>
-      <ButtonFilter
-        onClick={handleAllocationsChange}
-        checked={allocations.industrial}
+        label="آليات"
+        onChange={handleAllocationsChange}
+        checked={allocations.vehicle}
+      />
+      <Checkbox
         name="industrial"
-      >
-        صناعي
-      </ButtonFilter>
-      <ButtonFilter
-        onClick={handleAllocationsChange}
-        checked={allocations.agriculture}
+        label="صناعي"
+        onChange={handleAllocationsChange}
+        checked={allocations.industrial}
+      />
+      <Checkbox
         name="agriculture"
-      >
-        زراعي
-      </ButtonFilter>
+        label="زراعي"
+        onChange={handleAllocationsChange}
+        checked={allocations.agriculture}
+      />
     </div>
   );
 }
 
 export default memo(StationsRecordViewFilter);
-
-/**
- *
- * @param {import("src/components/buttons/Button").buttonProps} props
- * @returns
- */
-const ButtonFilter = ({ checked, ...props }) => (
-  <Button
-    color={checked ? "primary" : "secondary"}
-    variant={"outlined"}
-    className="rounded-[35px] px-10 max-sm:px-5"
-    {...props}
-  />
-);
