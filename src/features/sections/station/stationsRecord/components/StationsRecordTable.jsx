@@ -118,19 +118,3 @@ function StationsRecordTable({
 }
 
 export default memo(StationsRecordTable);
-
-export const rows = Array.from({ length: 10 }, (_, k) => ({
-  id: k + 1,
-  owner: "محمد علي",
-  plateNumber: 12478,
-  chassisNumber: 12478,
-  model: k === 4 ? "dasdsahdioashdohofsihdfiodsfhoshdo" : "مارسيدس",
-  color: "أبيض",
-  type: "النوع",
-  document: "الوثيقة",
-  documentNumber: 232,
-  source: "دمشق",
-  address: "كوباني",
-  notes: "لا يوجد",
-  council: "مجلس 2",
-}));

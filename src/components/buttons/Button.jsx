@@ -32,7 +32,7 @@ function Button(props) {
       twMerge(
         `${
           buttonTheme[variant][processedDisabled ? "disabled" : color]
-        }  rounded-lg transition-all duration-150 ease-in-out text-[12px] lg:text-[16px] py-2 max-lg:py-0.5 px-4 w-full`,
+        } rounded-lg transition-all duration-150 ease-in-out text-[16px] py-2 px-4 w-full`,
         `${className}`
       ),
     [className, variant, processedDisabled, color]
@@ -52,7 +52,7 @@ export default Button;
 
 const disabled = "text-white bg-[#888] border-[#888] opacity-60";
 
-const buttonTheme = {
+export const buttonTheme = {
   contained: {
     primary: "text-white bg-primary-main hover:bg-primary-dark",
     secondary: "text-black bg-secondary-main hover:bg-dark-dark",

@@ -23,7 +23,7 @@ function StationsRecordInfo() {
   );
 
   return (
-    <div className="ms-10 mt-8">
+    <div className="mx-2 mt-8">
       <Accordion
         title="معلومات المحطة"
         onChange={handleChange}
