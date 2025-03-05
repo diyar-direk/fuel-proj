@@ -67,15 +67,15 @@ function Login() {
           src={require("../assets/Logo1.png")}
           alt=""
           loading="lazy"
-          className="absolute top-[-100px] left-[-50px] w-1/5 opacity-[0.1]"
+          className="absolute top-[-200px] left-[-80px] w-1/3 opacity-[0.2]"
         />
         <img
           src={require("../assets/Logo1.png")}
           alt=""
           loading="lazy"
-          className="absolute bottom-[-100px] right-[-50px] w-1/5 opacity-[0.1]"
+          className="absolute bottom-[-200px] right-[-80px] w-1/3 opacity-[0.2]"
         />
-        <div className="shadow-[0_0_20px_8px_#F1F1F1] max-xs:w-[88%] max-lg:w-[70%] max-md:w-[80%] w-1/2 p-[30px] rounded-[10px]">
+        <div className="shadow-[0_0_10px_5px_#F1F1F1] bg-white z-10 max-xs:w-[88%] max-lg:w-[70%] max-md:w-[80%] w-1/2 p-[30px] rounded-[10px]">
           <h1 className="text-3xl font-bold mb-[20px] max-xs:text-[20px] max-md:text-[25px] text-center text-primary-main">
             تسجيل الدخول
           </h1>
@@ -84,7 +84,7 @@ function Login() {
             <div className="flex flex-col flex-1 gap-4">
               <Inputs formik={formik} arrayOfData={inputs} />
               <Button className="max-lg:p-[10px] max-xs:p-[8px]" type="submit">
-                Login
+                تسجيل الدخول
               </Button>
               <p className="text-center max-xs:text-[12px] max-lg:text-[15px] max-md:text-[14px] text-dark-light">
                 هل نسيت كلمة السر؟
