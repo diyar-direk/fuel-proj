@@ -3,6 +3,7 @@ import Button from "../buttons/Button";
 import { ReactComponent as InfoIcon } from "src/assets/icons/info.svg";
 import { ReactComponent as ArrowDownIcon } from "src/assets/icons/arrow-down.svg";
 import { EventTarget } from "src/utils/EventTarget";
+import ExpandContainer from "./ExpandContainer";
 
 function Accordion({
   name,
@@ -45,13 +46,13 @@ function Accordion({
         </span>
       </Button>
       <div>
-        <div
-          className={`duration-150 border-t-2 border-solid border-secondary-secondary flex ${
-            expand ? "h-max mt-8 pt-8 pb-4" : "h-0 overflow-hidden"
-          }`}
+        <ExpandContainer
+          expand={expand}
+          expanedClassName="mt-8 pt-8 pb-4"
+          className="border-t-2 border-solid border-secondary-secondary"
         >
           {children}
-        </div>
+        </ExpandContainer>
       </div>
     </div>
   );
