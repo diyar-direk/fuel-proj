@@ -1,7 +1,7 @@
 import { memo, useMemo } from "react";
 import Option from "./RawSelect/Option";
 import RawSelect from "./RawSelect/RawSelect";
-import Loading from "../Skeleton/Loading";
+import Loading from "../skeleton/Loading";
 import useSelectApi from "../../hooks/useSelectApi";
 import { twMerge } from "tailwind-merge";
 

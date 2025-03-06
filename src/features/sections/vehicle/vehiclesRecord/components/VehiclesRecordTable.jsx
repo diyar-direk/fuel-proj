@@ -5,7 +5,7 @@ import Button from "src/components/buttons/Button";
 /**
  * @type {import("src/components/table/Table").column[]}
  */
-const columns = [
+export const columns = [
   {
     name: "id",
     headerName: "رقم الآلية",

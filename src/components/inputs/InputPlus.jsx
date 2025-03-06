@@ -1,5 +1,5 @@
 import { memo, useMemo } from "react";
-import Skeleton from "../Skeleton/Skeleton";
+import Skeleton from "../skeleton/Skeleton";
 import Input from "./Input";
 import Select from "./Select";
 import TextArea from "./TextArea";
@@ -35,14 +35,14 @@ function InputPlus(props) {
     ...inputProps
   } = props;
   const containerClassNameMemo = useMemo(
-    () => twMerge("flex flex-col gap-4", inputPlusContainerProps.className),
+    () => twMerge("flex flex-col gap-1", inputPlusContainerProps.className),
     [inputPlusContainerProps.className]
   );
 
   const titleClassNameMemo = useMemo(
     () =>
       twMerge(
-        "text-[14px] lg:text-[20px] font-semibold flex gap-1",
+        "max-lg:text-[14px] text-[20px] font-medium flex gap-1",
         titleProps.className
       ),
     [titleProps.className]
