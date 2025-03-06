@@ -12,10 +12,10 @@ function ExpandContainer({
   const classNameMemo = useMemo(
     () =>
       twMerge(
-        `duration-150 ${
+        `duration-150 ease-in-out overflow-hidden ${
           expand
-            ? `h-max ${expanedClassName}`
-            : `h-0 overflow-hidden ${notExpanedClassName}`
+            ? `max-h-[10000px] ${expanedClassName}`
+            : `max-h-0  ${notExpanedClassName}`
         }`,
         className
       ),
