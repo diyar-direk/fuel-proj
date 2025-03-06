@@ -18,6 +18,7 @@ const openSelectStatus = ["enter", "space", "arrowdown", "arrowup"];
  * @typedef utils
  * @property {any} value
  * @property {React.HTMLAttributes<HTMLDivElement>} optionsContainer
+ * @property {React.SVGProps<SVGSVGElement> & {title?: string;}} arrowDownProps
  */
 
 /**
@@ -38,6 +39,7 @@ function RawSelect({
   value: externalValue,
   optionsContainer = { className: "" },
   disabled,
+  arrowDownProps = {},
   ...props
 }) {
   const [openDrop, setOpenDrop] = useState(false);
@@ -228,7 +230,7 @@ function RawSelect({
     >
       <div className="flex justify-between items-center px-1 h-full">
         <div className="pl-1 pr-2">{value.children}</div>
-        <ArrowDown />
+        <ArrowDown {...arrowDownProps} />
       </div>
       {openDrop && (
         <div

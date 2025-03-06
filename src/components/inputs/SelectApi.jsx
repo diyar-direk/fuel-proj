@@ -83,7 +83,7 @@ function SelectApi({
                   className="flex justify-center py-1"
                   key={uniqueKeys[1]}
                 >
-                  No more data...
+                  لا يوجد بيانات آخرى...
                 </Option>
               ),
             },

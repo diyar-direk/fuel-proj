@@ -68,7 +68,7 @@ function ParentOption(
           disabled
             ? "text-gray-500 hover:bg-none"
             : "hover:bg-primary-main hover:text-white "
-        } ${selected ? "bg-primary-main text-white" : ""}`,
+        } ${selected ? "bg-primary-main text-white" : "text-black"}`,
         className
       ),
     [disabled, selected, className]
