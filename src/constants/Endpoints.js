@@ -5,6 +5,7 @@ const Endpoints = {
   login: "login/",
   station: "station/",
   stations: "stations/",
+  general: "general/",
 };
 
 export default Endpoints;

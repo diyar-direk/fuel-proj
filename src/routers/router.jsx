@@ -5,6 +5,7 @@ import { vehiclePrintRouter } from "src/features/sections/vehicle/vehiclesPrint/
 import { vehiclesRecordRouter } from "src/features/sections/vehicle/vehiclesRecord/router";
 import loginRouter from "src/features/login/router";
 import { stationsRecordRouter } from "src/features/sections/station/stationsRecord/router";
+import adminRouter from "src/features/admin/router";
 
 function AppRouter() {
   const routers = createBrowserRouter([
@@ -22,6 +23,7 @@ function AppRouter() {
           ],
         },
         ...loginRouter,
+        ...adminRouter,
       ],
     },
   ]);

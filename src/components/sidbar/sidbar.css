@@ -1,0 +1,14 @@
+.sidbar-links:has(a.active) > div,
+.sidbar-links > div:hover {
+  @apply bg-primary-main;
+  color: white;
+  & svg {
+    fill: white;
+  }
+}
+.sidbar-links article a:first-of-type {
+  margin-bottom: 2px;
+}
+.sidbar-links a.active {
+  @apply bg-primary-light;
+}

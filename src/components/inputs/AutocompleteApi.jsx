@@ -1,7 +1,7 @@
 import { useMemo, useState } from "react";
 import useSelectApi from "../../hooks/useSelectApi";
 import RawAutocomplete from "./RawAutocomplete";
-import Loading from "../Skeleton/Loading";
+import Loading from "../skeleton/Loading";
 import { twMerge } from "tailwind-merge";
 import ParentOption from "./RawSelect/ParentOption";
 import useDebouncedValue from "../../hooks/useDebouncedValue";

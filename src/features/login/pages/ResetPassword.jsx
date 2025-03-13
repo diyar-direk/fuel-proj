@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { memo, useState } from "react";
 import forgetImg from "../assets/computer-security-with-login-password-padlock.jpg";
 import * as yup from "yup";
 import { useFormik } from "formik";
@@ -132,4 +132,4 @@ const ResetPassword = () => {
   );
 };
 
-export default ResetPassword;
+export default memo(ResetPassword);
