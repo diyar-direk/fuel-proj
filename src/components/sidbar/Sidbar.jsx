@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { pageLinks } from "./pagesLink";
 import { NavLink } from "react-router-dom";
 import "./sidbar.css";
-const Sidebar = () => {
+const Sidebar = (props) => {
   const [activeIndex, setActiveIndex] = useState(null);
 
   const toggleMenu = (index) => {
@@ -10,7 +10,7 @@ const Sidebar = () => {
   };
 
   return (
-    <aside className="bg-[#eee] h-screen w-[300px] p-5">
+    <aside {...props} className="bg-[#eee] w-[300px] p-5">
       {pageLinks?.map((link, index) => (
         <div key={index} className="sidbar-links mb-2">
           <div

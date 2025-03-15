@@ -8,7 +8,12 @@ const AddCouncil = lazy(() => import("./pages/council/pages/AddCouncil"));
 const AddDirectorate = lazy(() =>
   import("./pages/directorate/pages/AddDirectorate")
 );
-
+const CreateEmploye = lazy(() =>
+  import("./pages/employees/pages/CreateEmploye")
+);
+const EmployeesList = lazy(() =>
+  import("./pages/employees/pages/EmployeesList")
+);
 const adminRouter = [
   {
     path: "add-sector",
@@ -39,6 +44,22 @@ const adminRouter = [
     element: (
       <PageFallback height="100vh">
         <DirectoratesList />
+      </PageFallback>
+    ),
+  },
+  {
+    path: "employess",
+    element: (
+      <PageFallback height="100vh">
+        <EmployeesList />
+      </PageFallback>
+    ),
+  },
+  {
+    path: "create-employe",
+    element: (
+      <PageFallback height="100vh">
+        <CreateEmploye />
       </PageFallback>
     ),
   },

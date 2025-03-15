@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { pageLinks } from "./pagesLink";
-import burgerIcon from "./burger-list-menu-navigation-svgrepo-com.svg";
 import { Link, useNavigate } from "react-router-dom";
 import logo from "src/assets/icons/logo.svg";
 import IconButton from "../buttons/IconButton";
@@ -8,7 +7,7 @@ import searchIcon from "./search-alt-2-svgrepo-com.svg";
 import moonIcon from "./moon-svgrepo-com.svg";
 import signoutIcon from "./sign-out-svgrepo-com.svg";
 
-const Header = () => {
+const Header = (props) => {
   const [form, setForm] = useState("");
   const navigate = useNavigate();
 
@@ -34,12 +33,12 @@ const Header = () => {
   };
 
   return (
-    <header className="flex items-center justify-center p-4 gap-[20px] bg-white text-white">
-      <div className="logo items-center gap-[20px] flex">
+    <header
+      {...props}
+      className="flex items-center justify-center p-4 gap-[20px] bg-white text-white"
+    >
+      <div className="logo items-center flex">
         <img src={logo} alt="" className="w-[200px]" />
-        <IconButton>
-          <img src={burgerIcon} alt="" className="w-[25px] h-[25px]" />
-        </IconButton>
       </div>
 
       <form onSubmit={searchClick} className="relative flex flex-1">

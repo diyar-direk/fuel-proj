@@ -10,6 +10,6 @@ export const getDirectorates = async (params) => {
       { params }
     );
 
-    return { vehicles: data.directorates, count: data.count };
+    return { directorates: data.directorates, count: data.count };
   } catch {}
 };

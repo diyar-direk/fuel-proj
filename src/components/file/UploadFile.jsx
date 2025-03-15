@@ -1,9 +1,9 @@
 import React, { memo, useCallback, useEffect, useState } from "react";
 import { EventTarget } from "../../utils/EventTarget";
 import Skeleton from "../skeleton/Skeleton";
-import Input from "../Inputs/Input";
-import uploadBlueIcon from "./../../assets/icons/upload-blue.png";
-import uploadGrayIcon from "./../../assets/icons/upload-gray.png";
+import Input from "../inputs/Input";
+import uploadBlueIcon from "../../assets/icons/add.svg";
+import uploadGrayIcon from "./../../assets/icons/agriculture.svg";
 import { FileURL } from "../../utils/FileURL";
 
 function UploadFile({

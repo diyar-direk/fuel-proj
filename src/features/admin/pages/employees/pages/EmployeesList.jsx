@@ -1,29 +1,28 @@
 import useCashingState from "src/hooks/useCashingState";
 import { memo } from "react";
 import { useInfiniteQuery } from "@tanstack/react-query";
-import { getDirectorates } from "../api/api";
-import DirectorateTable from "../components/DirectorateTable";
 import Header from "src/components/sidbar/Header";
 import Sidebar from "src/components/sidbar/Sidbar";
 import SubHeader from "src/components/SubHeader";
-import DirectoratesToolBar from "../components/DirectoratesToolBar";
+import EmployessTable from "../components/EmployessTable";
+import EmployessToolBar from "../components/EmployessToolBar";
+import { getEmployess } from "../api/api";
 
-function DirectoratesList() {
-  const [page, setPage] = useCashingState("directoratesPage", 1);
+function EmployessList() {
+  const [page, setPage] = useCashingState("employessPage", 1);
 
   const vehcilesRecord = useInfiniteQuery({
-    queryKey: ["directorates", page],
-    queryFn: () => getDirectorates({ page }),
+    queryKey: ["employess", page],
+    queryFn: () => getEmployess({ page }),
     getNextPageParam: (data) => data,
   });
 
-  const [sortStatuses, setSortStatuses] = useCashingState(
-    "directoratesStatus",
-    { id: "ASC" }
-  );
+  const [sortStatuses, setSortStatuses] = useCashingState("employessStatus", {
+    id: "ASC",
+  });
 
   const [selectedRows, setSelectedRows] = useCashingState(
-    "directoratesRows",
+    "employessRows",
     new Set()
   );
 
@@ -34,9 +33,9 @@ function DirectoratesList() {
         <Sidebar />
         <div className="flex-1 p-[40px]">
           <SubHeader>
-            <DirectoratesToolBar />
+            <EmployessToolBar />
           </SubHeader>
-          <DirectorateTable
+          <EmployessTable
             selectedRows={selectedRows}
             sortStatuses={sortStatuses}
             setSelectedRows={setSelectedRows}
@@ -53,4 +52,4 @@ function DirectoratesList() {
   );
 }
 
-export default memo(DirectoratesList);
+export default memo(EmployessList);
